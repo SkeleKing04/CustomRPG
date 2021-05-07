@@ -1,5 +1,5 @@
 # CustomRPG
-## CONSEPT
+## CONCEPT
 Characters have a class and a subclasses
 Classes are basic classes such as "warrior", "mage" and "archer".
 Subclasses work somewhat like a "type" or "element" that are ontop of the chosen class
