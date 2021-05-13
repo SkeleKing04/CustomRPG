@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
 
 public class CharacterReader : MonoBehaviour
 {
@@ -32,21 +33,61 @@ public class CharacterReader : MonoBehaviour
     public int m_Move4Core3;
     public string m_CharacterName;
     public int m_TheoreticalLength;
+    public string currentDirectory;
+    public string SavedPlayersFileName = "SavedPlayers";
     // Start is called before the first frame update
     void Start()
     {
+        currentDirectory = Application.dataPath;
+        LoadSavedPlayersFromFile();
+ 
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    public void LoadSavedPlayersFromFile()
+    {
+        bool Exists = File.Exists(currentDirectory + "\\assets\\" + SavedPlayersFileName);
+        if (Exists == true)
+        {
+            Debug.Log("Saved Players Found");
+        }
+        else
+        {
+            Debug.Log("Missing Saved Players file. Game will not run");
+            return;
+        }
+        StreamReader fileReader;
+        try
+        {
+            fileReader = new StreamReader(currentDirectory + "\\" + SavedPlayersFileName);
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e.Message);
+            return;
+        }
+        //string fileLine = fileReader.ReadLine();
+        m_CharacterData = fileReader.ReadLine();
+        LoadPlayer();
+    }
+    public void LoadPlayer()
+    {
         m_CurrentIndex = 0;
-        Debug.Log("Current Index - " + m_CurrentIndex);
         //Class
+        Debug.Log("Current Index - " + m_CurrentIndex);
         m_Class = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString());
         m_CurrentIndex += 2;
         m_TheoreticalLength += 2;
-
+        //Subclass
         Debug.Log("Current Index - " + m_CurrentIndex);
         m_Subclass = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString());
         m_CurrentIndex += 2;
         m_TheoreticalLength += 2;
-
+        //Move1
         Debug.Log("Current Index - " + m_CurrentIndex);
         m_Move1 = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString());
         m_CurrentIndex += 2;
@@ -81,6 +122,10 @@ public class CharacterReader : MonoBehaviour
                     m_TheoreticalLength += 2;
                     Debug.Log("13Current Index - " + m_CurrentIndex);
                     break;
+                default:
+                    Debug.Log("ILLIGAL CHARACTER. ABORTING");
+                    Application.Quit();
+                    return;
             }
         }
         m_Move2 = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString());
@@ -114,6 +159,10 @@ public class CharacterReader : MonoBehaviour
                     m_TheoreticalLength += 2;
                     Debug.Log("13Current Index - " + m_CurrentIndex);
                     break;
+                default:
+                    Debug.Log("ILLIGAL CHARACTER. ABORTING");
+                    Application.Quit();
+                    return;
             }
         }
         m_Move3 = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString());
@@ -147,6 +196,10 @@ public class CharacterReader : MonoBehaviour
                     m_TheoreticalLength += 2;
                     Debug.Log("13Current Index - " + m_CurrentIndex);
                     break;
+                default:
+                    Debug.Log("ILLIGAL CHARACTER. ABORTING");
+                    Application.Quit();
+                    return;
             }
         }
         m_Move4 = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString());
@@ -180,15 +233,18 @@ public class CharacterReader : MonoBehaviour
                     m_TheoreticalLength += 2;
                     Debug.Log("13Current Index - " + m_CurrentIndex);
                     break;
+                default:
+                    Debug.Log("ILLIGAL CHARACTER. ABORTING");
+                    Application.Quit();
+                    return;
             }
         }
-        //for(int i = m_CharacterData.Length; )
-        //m_CharacterName = 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for (int i = m_TheoreticalLength; i < m_CharacterData.Length; i++)
+        {
+            Debug.Log(m_TheoreticalLength);
+            m_CharacterName += m_CharacterData[i];
+            m_TheoreticalLength++;
+        }
+        //m_CharacterName =
     }
 }
