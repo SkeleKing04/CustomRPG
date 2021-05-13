@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.UI;
 
 public class CharacterReader : MonoBehaviour
 {
@@ -34,7 +35,9 @@ public class CharacterReader : MonoBehaviour
     public string m_CharacterName;
     public int m_TheoreticalLength;
     public string currentDirectory;
-    public string SavedPlayersFileName = "SavedPlayers";
+    private string SavedPlayersFileName = "SavedPlayers.txt";
+    public string[] m_SavedCharacters = new string[5];
+    public InputField m_CharacterSlotInputer;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,33 +53,24 @@ public class CharacterReader : MonoBehaviour
     }
     public void LoadSavedPlayersFromFile()
     {
-        bool Exists = File.Exists(currentDirectory + "\\assets\\" + SavedPlayersFileName);
+        Debug.Log("Looking for " + currentDirectory + "/" + SavedPlayersFileName);
+        bool Exists = File.Exists(currentDirectory + "/" + SavedPlayersFileName);
+        Debug.Log(Exists);
         if (Exists == true)
         {
             Debug.Log("Saved Players Found");
         }
         else
         {
-            Debug.Log("Missing Saved Players file. Game will not run");
+            Debug.Log("Missing Saved Players file. Game will not run", this);
             return;
         }
-        StreamReader fileReader;
-        try
-        {
-            fileReader = new StreamReader(currentDirectory + "\\" + SavedPlayersFileName);
-        }
-        catch(Exception e)
-        {
-            Debug.Log(e.Message);
-            return;
-        }
-        //string fileLine = fileReader.ReadLine();
-        m_CharacterData = fileReader.ReadLine();
-        LoadPlayer();
+        m_SavedCharacters = File.ReadAllLines(currentDirectory + "/" + SavedPlayersFileName);
     }
     public void LoadPlayer()
     {
         m_CurrentIndex = 0;
+        m_TheoreticalLength = 0;
         //Class
         Debug.Log("Current Index - " + m_CurrentIndex);
         m_Class = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString());
@@ -239,6 +233,7 @@ public class CharacterReader : MonoBehaviour
                     return;
             }
         }
+        m_CharacterName = "";
         for (int i = m_TheoreticalLength; i < m_CharacterData.Length; i++)
         {
             Debug.Log(m_TheoreticalLength);
@@ -246,5 +241,17 @@ public class CharacterReader : MonoBehaviour
             m_TheoreticalLength++;
         }
         //m_CharacterName =
+    }
+    public void SelectPlayerSlot()
+    {
+        int i = Convert.ToInt32(m_CharacterSlotInputer.text);
+        Debug.Log(i);
+        if(i > m_SavedCharacters.Length)
+        {
+            Debug.Log("TOO LONG");
+            return;
+        }
+        m_CharacterData = m_SavedCharacters[i - 1];
+        LoadPlayer();
     }
 }
