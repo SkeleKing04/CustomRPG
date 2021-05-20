@@ -1,0 +1,6 @@
+Warrior
+Mage
+Archer
+Rogue
+Healer
+Tank

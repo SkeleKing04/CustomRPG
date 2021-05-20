@@ -64,7 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CharacterReader.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <None Include="Assets\characterValues\characterSubclasses.txt" />
     <None Include="Assets\SavedPlayers.txt" />
+    <None Include="Assets\characterValues\characterClasses.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>L:/GitHub/CustomRPG/CustomRPG/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

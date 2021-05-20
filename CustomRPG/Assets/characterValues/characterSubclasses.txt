@@ -1,0 +1,6 @@
+Fire
+Lightning
+Ice
+Grass
+Water
+Poison
