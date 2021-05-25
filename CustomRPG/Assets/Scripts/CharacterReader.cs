@@ -11,6 +11,10 @@ public class CharacterReader : MonoBehaviour
     private GameManager m_GameManager;
     public string m_CharacterData;
     public int[] m_Character;
+    public ScriptableObject[] m_Classes;
+    public ScriptableObject[] m_Subclasses;
+    public ScriptableObject[] m_Moves;
+    public ScriptableObject[] m_Cores;
     private int m_CurrentIndex;
     public int m_Class;
     public int m_Subclass;
@@ -43,8 +47,8 @@ public class CharacterReader : MonoBehaviour
     public Color[] m_SubclassColors;
     private string SavedPlayersFileName = "SavedPlayers.txt";
     public string[] m_SavedCharacters = new string[5];
-    public string[] m_characterClasses = new string[99];
-    public string[] m_characterSubclasses = new string[99];
+    //public string[] m_characterClasses = new string[99];
+    //public string[] m_characterSubclasses = new string[99];
     public InputField m_CharacterSlotInputer;
     public Text m_CharacterBlerb;
     // Start is called before the first frame update
@@ -75,9 +79,9 @@ public class CharacterReader : MonoBehaviour
             return;
         }
         m_SavedCharacters = File.ReadAllLines(currentDirectory + "/" + SavedPlayersFileName);
-        m_characterClasses = File.ReadAllLines(currentDirectory + "/characterValues/characterClasses.txt");
-        m_characterSubclasses = File.ReadAllLines(currentDirectory + "/characterValues/characterSubclasses.txt");
-        Debug.Log(m_characterClasses[0].ToString());
+        //m_characterClasses = File.ReadAllLines(currentDirectory + "/characterValues/characterClasses.txt");
+        //m_characterSubclasses = File.ReadAllLines(currentDirectory + "/characterValues/characterSubclasses.txt");
+        //Debug.Log(m_characterClasses[0].ToString());
     }
     public void LoadPlayer()
     {
@@ -268,7 +272,7 @@ public class CharacterReader : MonoBehaviour
             m_CharacterName += m_CharacterData[i];
             m_TheoreticalLength++;
         }
-        m_CharacterBlerb.text = m_characterSubclasses[m_Subclass - 1] + " " + m_characterClasses[m_Class - 1] + " " + m_CharacterName;
+        m_CharacterBlerb.text = m_Subclasses[m_Subclass - 1].name + " " + m_Classes[m_Class - 1].name + " " + m_CharacterName;
         foreach (Image image in m_MoveCoreDisplay)
         {
             image.color = m_SubclassColors[m_Subclass - 1];

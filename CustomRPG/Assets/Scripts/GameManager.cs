@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject[] m_Menus;
     public Dropdown dropdown;
-
+    EditorMenu editorMenu;
     public enum e_MenuState
     {
         ChooseCharacter,
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
         MenuState = e_MenuState.ChooseCharacter;
         UpdateMenu();
-
+        editorMenu = Object.FindObjectOfType<EditorMenu>();
         Dropdown.OptionData fire = new Dropdown.OptionData();
         fire.text = "Fire";
         //dropdown.AddOptions(fire);
@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
                 break;
             case e_MenuState.EditCharacter:
                 m_Menus[1].SetActive(true);
+                editorMenu.LoadEditor();
                 break;
         }
     }
