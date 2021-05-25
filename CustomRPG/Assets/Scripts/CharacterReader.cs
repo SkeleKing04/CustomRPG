@@ -8,6 +8,7 @@ using UnityEditor;
 
 public class CharacterReader : MonoBehaviour
 {
+    private GameManager m_GameManager;
     public string m_CharacterData;
     public int[] m_Character;
     private int m_CurrentIndex;
@@ -51,13 +52,13 @@ public class CharacterReader : MonoBehaviour
     {
         currentDirectory = Application.dataPath;
         LoadSavedPlayersFromFile();
- 
+        m_GameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void LoadSavedPlayersFromFile()
     {
@@ -82,7 +83,7 @@ public class CharacterReader : MonoBehaviour
     {
         m_CurrentIndex = 0;
         m_TheoreticalLength = 0;
-        foreach(Image image in m_MoveCoreDisplay)
+        foreach (Image image in m_MoveCoreDisplay)
         {
             image.gameObject.SetActive(false);
         }
@@ -278,7 +279,7 @@ public class CharacterReader : MonoBehaviour
     {
         int i = Convert.ToInt32(m_CharacterSlotInputer.text);
         Debug.Log(i);
-        if(i > m_SavedCharacters.Length)
+        if (i > m_SavedCharacters.Length)
         {
             Debug.Log("TOO LONG");
             return;
@@ -286,4 +287,5 @@ public class CharacterReader : MonoBehaviour
         m_CharacterData = m_SavedCharacters[i - 1];
         LoadPlayer();
     }
+
 }
