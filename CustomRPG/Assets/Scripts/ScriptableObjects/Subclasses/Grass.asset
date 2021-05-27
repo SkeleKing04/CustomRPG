@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: 
   name: Grass
+  subclassColour: {r: 0.4627451, g: 1, b: 0.33333334, a: 1}

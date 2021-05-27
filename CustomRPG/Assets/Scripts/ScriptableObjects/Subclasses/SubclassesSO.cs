@@ -6,6 +6,7 @@ using UnityEngine;
 public class SubclassesSO : ScriptableObject
 {
     public string name;
+    public Color subclassColour;
     // Start is called before the first frame update
     void Start()
     {

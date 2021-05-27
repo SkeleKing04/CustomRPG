@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Fire
   m_EditorClassIdentifier: 
   name: Fire
+  subclassColour: {r: 1, g: 0.2784314, b: 0, a: 1}

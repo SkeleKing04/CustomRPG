@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82aa9b4b177f38c46a3d399140a18007, type: 3}
-  m_Name: Mage
+  m_Script: {fileID: 11500000, guid: a7712f9bcf7b11c4cb433fbbbce572e4, type: 3}
+  m_Name: Core
   m_EditorClassIdentifier: 
-  name: Mage
-  classIcon: {fileID: 21300000, guid: 5d1e5074124f9444bb326a31341c3594, type: 3}
+  name: 
+  ForSubclass: {fileID: 11400000, guid: a46f28857a862f24dbc7661c9ffb7a65, type: 2}

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Tank
   m_EditorClassIdentifier: 
   name: Tank
+  classIcon: {fileID: 21300000, guid: 91fe5daca45494a438009d14204c389d, type: 3}

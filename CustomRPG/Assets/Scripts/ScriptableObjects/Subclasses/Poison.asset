@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Poison
   m_EditorClassIdentifier: 
   name: Poison
+  subclassColour: {r: 0.6313726, g: 0, b: 1, a: 1}

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   name: Water
+  subclassColour: {r: 0.27058825, g: 0.46666667, b: 1, a: 1}

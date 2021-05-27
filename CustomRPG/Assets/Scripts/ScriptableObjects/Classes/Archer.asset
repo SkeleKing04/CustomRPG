@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Archer
   m_EditorClassIdentifier: 
   name: Archer
+  classIcon: {fileID: 21300000, guid: 1cf23b3038081cc4099f196a2f04b4b9, type: 3}

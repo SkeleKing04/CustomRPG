@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Ice
   m_EditorClassIdentifier: 
   name: Ice
+  subclassColour: {r: 0.24705882, g: 0, b: 1, a: 1}

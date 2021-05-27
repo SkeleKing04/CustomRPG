@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   name: Warrior
+  classIcon: {fileID: 21300000, guid: cf458b60dbec2694d9e4f3fb7c7486b0, type: 3}
