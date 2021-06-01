@@ -63,12 +63,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Attacks\Boost.cs" />
+    <Compile Include="Assets\Scripts\Attacks\Melee.cs" />
+    <Compile Include="Assets\Scripts\Attacks\Ranged.cs" />
+    <Compile Include="Assets\Scripts\Attacks\Summon.cs" />
+    <Compile Include="Assets\Scripts\Attacks\physicsRanged.cs" />
     <Compile Include="Assets\Scripts\CharacterInfoManager.cs" />
     <Compile Include="Assets\Scripts\CharacterLoader.cs" />
     <Compile Include="Assets\Scripts\CharacterMovement.cs" />
     <Compile Include="Assets\Scripts\CharacterReader.cs" />
     <Compile Include="Assets\Scripts\EditorMenu.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerAttack.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Classes\ClassesSO.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Cores\CoreSO.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Moves\MovesSO.cs" />

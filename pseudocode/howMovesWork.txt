@@ -1,0 +1,29 @@
+MoveSOs will have the
+	type of move
+	damage
+	effects
+	projectiles
+	and cores
+the type of move will determine what the move does
+the types of moves are
+	melee
+		close ranged simple hitbox attack
+		ie - sword swing
+	physicsRanged
+		fires a projectile affected by gravity
+		ie - fire arrow
+	Ranged
+		fires a projectile unaffected by gravity
+		ie - fireball or laser
+	Boost
+		Changes value of something (usually a player stat)
+		ie - speed boost or heal
+	Summon/Cast
+		Summons something into existance
+		ie - walls or minions
+moves may not have damage, effects or projectiles
+cores might add damage, effects of projectiles
+
+TAKING DAMAGE
+
+the damage is calculated attacking side, so the damage is sent to the defender

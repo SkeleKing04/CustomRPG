@@ -10,11 +10,14 @@ public class CharacterMovement : MonoBehaviour
     public float JumpForce = 10f;
     private Camera MainCamera;
     private Rigidbody m_rigidbody;
+    private Terrain ground;
+    public bool grounded;
     // Start is called before the first frame update
     void Start()
     {
         MainCamera = Camera.main;
         m_rigidbody = GetComponent<Rigidbody>();
+        ground = FindObjectOfType<Terrain>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Move
   m_EditorClassIdentifier: 
   name: Punch
-  ForClass: {fileID: 11400000, guid: bd8c83b39bf09c84eb4b8db94dde64a3, type: 2}
+  ForClass: {fileID: 11400000, guid: 0974597826257a6458f70e56571aecaf, type: 2}
+  moveType: 0
+  damage: 10
