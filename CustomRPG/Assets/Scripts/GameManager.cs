@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     EditorMenu editorMenu;
     public enum e_MenuState
     {
+        Off,
         ChooseCharacter,
         EditCharacter
     };
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MenuState = e_MenuState.ChooseCharacter;
+        //MenuState = e_MenuState.ChooseCharacter;
         UpdateMenu();
         editorMenu = Object.FindObjectOfType<EditorMenu>();
         Dropdown.OptionData fire = new Dropdown.OptionData();
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
         }
         switch (MenuState)
         {
+            case e_MenuState.Off:
+                break;
             case e_MenuState.ChooseCharacter:
                 m_Menus[0].SetActive(true);
                 break;

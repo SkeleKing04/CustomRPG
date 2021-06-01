@@ -12,11 +12,13 @@ public class EditorMenu : MonoBehaviour
     public Dropdown[] Dropdowns;
     private int localConuter;
     CharacterReader characterReader;
+    CharacterInfoManager CharacterInfo;
     // Start is called before the first frame update
 
     void Start()
     {
         characterReader = Object.FindObjectOfType<CharacterReader>();
+        CharacterInfo = Object.FindObjectOfType<CharacterInfoManager>();
 
     }
 
@@ -28,20 +30,30 @@ public class EditorMenu : MonoBehaviour
     public void LoadEditor()
     {
         localConuter = 0;
-        foreach (ScriptableObject Class in characterReader.m_Classes)
+        foreach (ScriptableObject Class in CharacterInfo.classes)
         {
             Dropdown.OptionData option = new Dropdown.OptionData();
-            option.text = characterReader.m_Classes[localConuter].name.ToString();
+            option.text = CharacterInfo.classes[localConuter].name.ToString();
             Dropdowns[0].options.Add(option);
             localConuter++;
         }
         localConuter = 0;
-        foreach (ScriptableObject Subclass in characterReader.m_Subclasses)
+        foreach (ScriptableObject Subclass in CharacterInfo.subclasses)
         {
             Dropdown.OptionData option = new Dropdown.OptionData();
-            option.text = characterReader.m_Subclasses[localConuter].name.ToString();
+            option.text = CharacterInfo.subclasses[localConuter].name.ToString();
             Dropdowns[1].options.Add(option);
             localConuter++;
+        }
+        for (int i = 2; i < 14; i += 4)
+        {
+            foreach (ScriptableObject Move in CharacterInfo.moves)
+            {
+                Dropdown.OptionData option = new Dropdown.OptionData();
+                option.text = CharacterInfo.moves[localConuter].name.ToString(); ;
+                Dropdowns[i].options.Add(option);
+            }
+
         }
 
     }

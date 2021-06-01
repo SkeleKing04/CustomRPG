@@ -9,12 +9,9 @@ using UnityEditor;
 public class CharacterReader : MonoBehaviour
 {
     private GameManager m_GameManager;
+    private CharacterInfoManager CharacterInfo;
     public string m_CharacterData;
     public int[] m_Character;
-    public ScriptableObject[] m_Classes;
-    public ScriptableObject[] m_Subclasses;
-    public ScriptableObject[] m_Moves;
-    public ScriptableObject[] m_Cores;
     private int m_CurrentIndex;
     public int m_Class;
     public int m_Subclass;
@@ -43,8 +40,6 @@ public class CharacterReader : MonoBehaviour
     public string currentDirectory;
     public Image m_ClassIconDisplay;
     public Image[] m_MoveCoreDisplay;
-    public Sprite[] m_ClassIcons;
-    public Color[] m_SubclassColors;
     private string SavedPlayersFileName = "SavedPlayers.txt";
     public string[] m_SavedCharacters = new string[5];
     //public string[] m_characterClasses = new string[99];
@@ -57,6 +52,7 @@ public class CharacterReader : MonoBehaviour
         currentDirectory = Application.dataPath;
         LoadSavedPlayersFromFile();
         m_GameManager = FindObjectOfType<GameManager>();
+        CharacterInfo = FindObjectOfType<CharacterInfoManager>();
     }
 
     // Update is called once per frame
@@ -94,13 +90,13 @@ public class CharacterReader : MonoBehaviour
         //Class
         Debug.Log("Current Index - " + m_CurrentIndex);
         m_Class = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString());
-        m_ClassIconDisplay.sprite = m_ClassIcons[m_Class - 1];
+        m_ClassIconDisplay.sprite = CharacterInfo.classes[m_Class - 1].classIcon;
         m_CurrentIndex += 2;
         m_TheoreticalLength += 2;
         //Subclass
         Debug.Log("Current Index - " + m_CurrentIndex);
         m_Subclass = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString());
-        m_ClassIconDisplay.color = m_SubclassColors[m_Subclass - 1];
+        m_ClassIconDisplay.color = CharacterInfo.subclasses[m_Subclass - 1].subclassColour;
         m_CurrentIndex += 2;
         m_TheoreticalLength += 2;
         //Move1
@@ -272,10 +268,10 @@ public class CharacterReader : MonoBehaviour
             m_CharacterName += m_CharacterData[i];
             m_TheoreticalLength++;
         }
-        m_CharacterBlerb.text = m_Subclasses[m_Subclass - 1].name + " " + m_Classes[m_Class - 1].name + " " + m_CharacterName;
+        m_CharacterBlerb.text = CharacterInfo.subclasses[m_Subclass - 1].name + " " + CharacterInfo.classes[m_Class - 1].name + " " + m_CharacterName;
         foreach (Image image in m_MoveCoreDisplay)
         {
-            image.color = m_SubclassColors[m_Subclass - 1];
+            image.color = m_ClassIconDisplay.color = CharacterInfo.subclasses[m_Subclass - 1].subclassColour;
         }
 
     }
