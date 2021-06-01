@@ -1588,8 +1588,6 @@ GameObject:
   - component: {fileID: 286858181}
   - component: {fileID: 286858176}
   - component: {fileID: 286858184}
-  - component: {fileID: 286858183}
-  - component: {fileID: 286858182}
   - component: {fileID: 286858185}
   m_Layer: 0
   m_Name: Player
@@ -1683,7 +1681,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286858175}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 43.6622, z: 10}
+  m_LocalPosition: {x: 10, y: 21.22, z: 10}
   m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -1707,19 +1705,7 @@ MonoBehaviour:
   RotateSpeed: 100
   JumpForce: 0.02
   grounded: 0
---- !u!114 &286858182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 286858175}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f08f5d4f971102a479619bd87ce1c9dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &286858183
+--- !u!114 &286858184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1728,24 +1714,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 286858175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe5e60b629ff93441b97c55717e17198, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &286858184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 286858175}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a248ab05bf7cf374489fc44497b4804c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackScripts:
-  - {fileID: 286858183}
-  - {fileID: 286858182}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!65 &286858185
 BoxCollider:
   m_ObjectHideFlags: 0
