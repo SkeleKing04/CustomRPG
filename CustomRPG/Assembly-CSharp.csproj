@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\EditorMenu.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerAttack.cs" />
+    <Compile Include="Assets\Scripts\PlayerInfomation.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Classes\ClassesSO.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Cores\CoreSO.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Moves\MovesSO.cs" />

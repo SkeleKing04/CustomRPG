@@ -9,18 +9,19 @@ public class MovesSO : ScriptableObject
     public string name;
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
     public ClassesSO ForClass;
-    public enum moveTypes
+    public enum MoveType
     {
         melee,
         physicsRanged,
-        Ranged,
-        Boost,
-        Summon
-    };
-    public moveTypes moveType;
+        ranged,
+        boost,
+        summon
+    }
+    public MoveType moveType;
     public int damage;
-    //public GameObject effects;
-    //public GameObject projectile;
+    public Rigidbody projectile;
+    public float projectileSpeed;
+    //public effectSO[] effect;
     //private GameObject cores;
     // Start is called before the first frame update
     void Start()

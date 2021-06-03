@@ -7,28 +7,32 @@ public class Melee : MonoBehaviour
     public Collider hitBox;
     CharacterReader CharacterReader;
     CharacterInfoManager CharacterInfo;
+    PlayerAttack PlayerAttack;
     public int damage;
-    private bool attacking = false;
+    public Rigidbody projectile;
+    public float projectileSpeed;
+    //public effectSO effect;
     // Start is called before the first frame update
     void Start()
     {
-        damage = CharacterInfo.moves[CharacterReader.m_Move1 - 1].damage;
+        PlayerAttack = FindObjectOfType<PlayerAttack>();
+        CharacterInfo = FindObjectOfType<CharacterInfoManager>();
+        CharacterReader = FindObjectOfType<CharacterReader>();
+        damage = CharacterReader.m_Move1.damage;
+        
         hitBox.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && attacking == false)
-        {
-            attacking = true;
-            CastAttack();
-        }
+
     }
-    private void CastAttack()
+    public void CastAttack()
     {
+        PlayerAttack.attacking = true;
         Debug.Log("attacking for " + damage + " damage");
         hitBox.enabled = true;
-        attacking = false;
+        PlayerAttack.attacking = false;
     }
 }

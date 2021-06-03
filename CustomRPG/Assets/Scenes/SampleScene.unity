@@ -1191,28 +1191,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CharacterData: 7140940271118720809133637643joe
   m_Character: 
-  m_Class: 0
-  m_Subclass: 0
-  m_Move1: 0
+  m_Class: {fileID: 0}
+  m_Subclass: {fileID: 0}
+  m_Move1: {fileID: 0}
   m_Move1CoreCount: 0
-  m_Move1Core1: 0
-  m_Move1Core2: 0
-  m_Move1Core3: 0
-  m_Move2: 0
+  m_Move1Core1: {fileID: 0}
+  m_Move1Core2: {fileID: 0}
+  m_Move1Core3: {fileID: 0}
+  m_Move2: {fileID: 0}
   m_Move2CoreCount: 0
-  m_Move2Core1: 0
-  m_Move2Core2: 0
-  m_Move2Core3: 0
-  m_Move3: 0
+  m_Move2Core1: {fileID: 0}
+  m_Move2Core2: {fileID: 0}
+  m_Move2Core3: {fileID: 0}
+  m_Move3: {fileID: 0}
   m_Move3CoreCount: 0
-  m_Move3Core1: 0
-  m_Move3Core2: 0
-  m_Move3Core3: 0
-  m_Move4: 0
+  m_Move3Core1: {fileID: 0}
+  m_Move3Core2: {fileID: 0}
+  m_Move3Core3: {fileID: 0}
+  m_Move4: {fileID: 0}
   m_Move4CoreCount: 0
-  m_Move4Core1: 0
-  m_Move4Core2: 0
-  m_Move4Core3: 0
+  m_Move4Core1: {fileID: 0}
+  m_Move4Core2: {fileID: 0}
+  m_Move4Core3: {fileID: 0}
   m_CharacterName: 
   m_TheoreticalLength: 0
   currentDirectory: 
@@ -1267,8 +1267,10 @@ MonoBehaviour:
   m_Menus:
   - {fileID: 1432173143}
   - {fileID: 70847530}
-  dropdown: {fileID: 0}
+  m_Player: {fileID: 286858175}
+  MainCamera: {fileID: 963194227}
   MenuState: 0
+  gameState: 1
 --- !u!114 &162764343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,7 +1329,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 56dd8146204c34546b40f4fbfdabbf03, type: 2}
   - {fileID: 11400000, guid: 540693199c09d9145b4bbe7053765ee7, type: 2}
   moves:
-  - {fileID: 11400000, guid: 0721e6c9edcff6a4181d2cf8aaacb40c, type: 2}
+  - {fileID: 0}
   cores:
   - {fileID: 11400000, guid: 5e55d6c341b491540b2f0e9c0a8169d9, type: 2}
 --- !u!1 &199638283
@@ -1587,8 +1589,12 @@ GameObject:
   - component: {fileID: 286858177}
   - component: {fileID: 286858181}
   - component: {fileID: 286858176}
-  - component: {fileID: 286858184}
+  - component: {fileID: 286858186}
   - component: {fileID: 286858185}
+  - component: {fileID: 286858184}
+  - component: {fileID: 286858183}
+  - component: {fileID: 286858182}
+  - component: {fileID: 286858187}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1705,7 +1711,75 @@ MonoBehaviour:
   RotateSpeed: 100
   JumpForce: 0.02
   grounded: 0
+--- !u!114 &286858182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286858175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af0557878d11b9647ae223b3cb206405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &286858183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286858175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab6088740997e74c91d1fe282203655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &286858184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286858175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 983cbaecc048cb94eb8960c16750c51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &286858185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286858175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 006826e7b95b6964f82b6dd06a6ac314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireTransform: {fileID: 0}
+  damage: 0
+  projectile: {fileID: 0}
+  projectileSpeed: 0
+--- !u!114 &286858186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286858175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4d9785d6114050499c56ad0f912f063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitBox: {fileID: 0}
+  damage: 0
+  projectile: {fileID: 0}
+  projectileSpeed: 0
+--- !u!114 &286858187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1717,22 +1791,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a248ab05bf7cf374489fc44497b4804c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackScripts:
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!65 &286858185
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 286858175}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3, y: 1.5, z: 1.5}
-  m_Center: {x: 0, y: 0.5, z: 1.5}
+  fireTransform: {fileID: 0}
+  projectile: {fileID: 0}
+  projectileSpeed: 0
 --- !u!1 &345662242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,6 +1963,36 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &399870843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 399870844}
+  m_Layer: 0
+  m_Name: FireTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &399870844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399870843}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 963194228}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &402535871
 GameObject:
   m_ObjectHideFlags: 0
@@ -3728,7 +3819,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 399870844}
   m_Father: {fileID: 286858180}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4516,11 +4608,22 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1347832291}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 162764341}
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1347832291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5877,6 +5980,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1347832290}
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:

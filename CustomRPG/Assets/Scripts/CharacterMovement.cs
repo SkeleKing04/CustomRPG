@@ -12,30 +12,35 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody m_rigidbody;
     private Terrain ground;
     public bool grounded;
+    GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
         MainCamera = Camera.main;
         m_rigidbody = GetComponent<Rigidbody>();
         ground = FindObjectOfType<Terrain>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // rotate the character according to left/right key presses
-        m_rigidbody.position += (transform.right * Input.GetAxis("Horizontal") * MoveSpeed);
-        m_rigidbody.position += (transform.forward * Input.GetAxis("Vertical") * MoveSpeed);
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * RotateSpeed * Time.deltaTime);
-        m_rigidbody.position += (transform.up * Input.GetAxis("Jump") * JumpForce);
-        //Quaternion cameraAngle = Quaternion.Euler(Input.GetAxis("Mouse Y") / 100, Input.GetAxis("Mouse X") / 100, 0);
-        //rotate player left and right
-        //rotate camera up and down
-        MainCamera.transform.Rotate(new Vector3(-(Input.GetAxis("Mouse Y")),0, 0) * RotateSpeed * Time.deltaTime);
-        MainCamera.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.eulerAngles.x,
-            0, 0);
+        switch (gameManager.gameState)
+        {
+            case GameManager.e_GameState.Playing:
+                // rotate the character according to left/right key presses
+                m_rigidbody.position += (transform.right * Input.GetAxis("Horizontal") * MoveSpeed);
+                m_rigidbody.position += (transform.forward * Input.GetAxis("Vertical") * MoveSpeed);
+                transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * RotateSpeed * Time.deltaTime);
+                m_rigidbody.position += (transform.up * Input.GetAxis("Jump") * JumpForce);
+                //Quaternion cameraAngle = Quaternion.Euler(Input.GetAxis("Mouse Y") / 100, Input.GetAxis("Mouse X") / 100, 0);
+                //rotate player left and right
+                //rotate camera up and down
+                MainCamera.transform.Rotate(new Vector3(-(Input.GetAxis("Mouse Y")),0, 0) * RotateSpeed * Time.deltaTime);
+                MainCamera.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.eulerAngles.x,
+                0, 0);
+                break;
+        }
 
     }
 }

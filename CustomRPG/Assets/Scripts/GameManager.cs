@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject[] m_Menus;
-    public Dropdown dropdown;
     EditorMenu editorMenu;
+    public GameObject m_Player;
+    public Camera MainCamera;
     public enum e_MenuState
     {
         Off,
@@ -15,6 +16,13 @@ public class GameManager : MonoBehaviour
         EditCharacter
     };
     public e_MenuState MenuState;
+    public enum e_GameState
+    {
+        Paused,
+        Start,
+        Playing
+    };
+    public e_GameState gameState;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +37,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        switch (gameState)
+        {
+            case e_GameState.Paused:
+                //m_Player.SetActive(false);
+                //MainCamera.gameObject.SetActive(true);
+                Time.timeScale = 0;
+                break;
+            case e_GameState.Start:
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                //m_Player.SetActive(true); ;
+                //MainCamera.gameObject.SetActive(true);
+                Time.timeScale = 1;
+                gameState = e_GameState.Playing;
+                break;
+        }
     }
     public void UpdateMenu()
     {
@@ -49,6 +72,12 @@ public class GameManager : MonoBehaviour
                 editorMenu.LoadEditor();
                 break;
         }
+    }
+    public void StartGame()
+    {
+        gameState = e_GameState.Start;
+        MenuState = e_MenuState.Off;
+        UpdateMenu();
     }
     public void OpenEditor()
     {
