@@ -1269,8 +1269,8 @@ MonoBehaviour:
   - {fileID: 70847530}
   m_Player: {fileID: 286858175}
   MainCamera: {fileID: 963194227}
-  MenuState: 0
-  gameState: 1
+  MenuState: 1
+  gameState: 0
 --- !u!114 &162764343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1589,12 +1589,12 @@ GameObject:
   - component: {fileID: 286858177}
   - component: {fileID: 286858181}
   - component: {fileID: 286858176}
+  - component: {fileID: 286858187}
   - component: {fileID: 286858186}
   - component: {fileID: 286858185}
   - component: {fileID: 286858184}
   - component: {fileID: 286858183}
   - component: {fileID: 286858182}
-  - component: {fileID: 286858187}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286858175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af0557878d11b9647ae223b3cb206405, type: 3}
   m_Name: 
@@ -1730,7 +1730,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286858175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ab6088740997e74c91d1fe282203655, type: 3}
   m_Name: 
@@ -1742,7 +1742,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286858175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 983cbaecc048cb94eb8960c16750c51d, type: 3}
   m_Name: 
@@ -1754,7 +1754,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286858175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 006826e7b95b6964f82b6dd06a6ac314, type: 3}
   m_Name: 
@@ -1770,7 +1770,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286858175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4d9785d6114050499c56ad0f912f063, type: 3}
   m_Name: 
@@ -1794,6 +1794,11 @@ MonoBehaviour:
   fireTransform: {fileID: 0}
   projectile: {fileID: 0}
   projectileSpeed: 0
+  meleeScript: {fileID: 0}
+  physicsRangedScript: {fileID: 0}
+  rangedScript: {fileID: 0}
+  boostScript: {fileID: 0}
+  summonScript: {fileID: 0}
 --- !u!1 &345662242
 GameObject:
   m_ObjectHideFlags: 0
