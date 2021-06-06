@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: MagicBlast
   m_EditorClassIdentifier: 
   name: MagicBlast
-  ForClass: {fileID: 11400000, guid: 311cb7dea435dac4a91894ef287d3830, type: 2}
-  moveType: 2
+  moveType: 1
   damage: 20
-  effects: {fileID: 0}
+  hitBox: {fileID: 0}
   projectile: {fileID: 0}
+  projectileSpeed: 5
+  boostStat: 0
+  boostAmmount: 0
+  boostDuration: 0
+  Cooldown: 5

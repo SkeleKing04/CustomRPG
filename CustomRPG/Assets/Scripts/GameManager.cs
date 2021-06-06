@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     EditorMenu editorMenu;
     public GameObject m_Player;
     public Camera MainCamera;
+    PlayerInfomation playerInfo;
+    CharacterReader characterReader;
+    CharacterMovement movement;
     public enum e_MenuState
     {
         Off,
@@ -29,6 +32,9 @@ public class GameManager : MonoBehaviour
         //MenuState = e_MenuState.ChooseCharacter;
         UpdateMenu();
         editorMenu = Object.FindObjectOfType<EditorMenu>();
+        playerInfo = Object.FindObjectOfType<PlayerInfomation>();
+        characterReader = Object.FindObjectOfType<CharacterReader>();
+        movement = Object.FindObjectOfType<CharacterMovement>();
         Dropdown.OptionData fire = new Dropdown.OptionData();
         fire.text = "Fire";
         //dropdown.AddOptions(fire);
@@ -47,6 +53,11 @@ public class GameManager : MonoBehaviour
             case e_GameState.Start:
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                playerInfo.HP = characterReader.m_Class.HP;
+                playerInfo.baseDamage = characterReader.m_Class.baseDamage;
+                playerInfo.defence = characterReader.m_Class.defence;
+                playerInfo.speed = characterReader.m_Class.speed;
+                movement.MoveSpeed = playerInfo.speed / 200;
                 //m_Player.SetActive(true); ;
                 //MainCamera.gameObject.SetActive(true);
                 Time.timeScale = 1;

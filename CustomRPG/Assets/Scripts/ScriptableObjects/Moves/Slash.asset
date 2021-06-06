@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Slash
   m_EditorClassIdentifier: 
   name: Slash
-  ForClass: {fileID: 11400000, guid: 0974597826257a6458f70e56571aecaf, type: 2}
   moveType: 0
   damage: 10
-  effects: {fileID: 0}
+  hitBox: {fileID: 0}
   projectile: {fileID: 0}
+  projectileSpeed: 0
+  boostStat: 0
+  boostAmmount: 0
+  boostDuration: 0
+  Cooldown: 1

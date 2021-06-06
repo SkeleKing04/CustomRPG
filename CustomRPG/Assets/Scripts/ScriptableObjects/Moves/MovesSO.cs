@@ -5,33 +5,51 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Move", menuName = "RPG/Move")]
 public class MovesSO : ScriptableObject
 {
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+    PlayerInfomation playerInfo;
     public string name;
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
-    public ClassesSO ForClass;
     public enum MoveType
     {
         melee,
-        physicsRanged,
         ranged,
-        boost,
-        summon
+        boost
     }
     public MoveType moveType;
-    public int damage;
+    public float damage;
+    public Collider hitBox;
     public Rigidbody projectile;
     public float projectileSpeed;
+    public enum stats
+    {
+        NA,
+        HP,
+        baseDamage,
+        defence,
+        speed
+    };
+    public stats boostStat;
+    public float boostAmmount;
+    public float boostDuration;
+    public float Cooldown;
     //public effectSO[] effect;
     //private GameObject cores;
-    // Start is called before the first frame update
     void Start()
     {
-        
+        playerInfo = FindObjectOfType<PlayerInfomation>();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void CastAttack()
     {
-        
+        switch (moveType)
+        {
+            case MoveType.melee:
+                Debug.Log("Casted " + name + " " + moveType + " attack");
+                break;
+            case MoveType.ranged:
+                Debug.Log("Casted " + name + " " + moveType + " attack");
+                break;
+            case MoveType.boost:
+
+                Debug.Log("Casted " + name + " " + moveType);
+                break;
+        }
     }
 }

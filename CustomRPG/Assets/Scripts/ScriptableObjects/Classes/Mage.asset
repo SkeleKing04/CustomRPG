@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Mage
   classIcon: {fileID: 21300000, guid: 5d1e5074124f9444bb326a31341c3594, type: 3}
+  HP: 10
+  baseDamage: 20
+  defence: 5
+  speed: 15
