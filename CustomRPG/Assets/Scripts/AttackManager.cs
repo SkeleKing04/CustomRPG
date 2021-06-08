@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInfomation : MonoBehaviour
+public class AttackManager : MonoBehaviour
 {
+    public bool Attacking;
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     PlayerInfomation playerInfo;
     CharacterReader characterReader;
     CharacterMovement movement;
+    HealthManager healthManager;
     public enum e_MenuState
     {
         Off,
@@ -34,7 +35,6 @@ public class GameManager : MonoBehaviour
         editorMenu = Object.FindObjectOfType<EditorMenu>();
         playerInfo = Object.FindObjectOfType<PlayerInfomation>();
         characterReader = Object.FindObjectOfType<CharacterReader>();
-        movement = Object.FindObjectOfType<CharacterMovement>();
         Dropdown.OptionData fire = new Dropdown.OptionData();
         fire.text = "Fire";
         //dropdown.AddOptions(fire);
@@ -53,11 +53,11 @@ public class GameManager : MonoBehaviour
             case e_GameState.Start:
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                playerInfo.HP = characterReader.m_Class.HP;
-                playerInfo.baseDamage = characterReader.m_Class.baseDamage;
-                playerInfo.defence = characterReader.m_Class.defence;
-                playerInfo.speed = characterReader.m_Class.speed;
-                movement.MoveSpeed = playerInfo.speed / 200;
+                m_Player.GetComponent<HealthManager>().HP = characterReader.HP;
+                m_Player.GetComponent<HealthManager>().baseDamage = characterReader.baseDamage;
+                m_Player.GetComponent<HealthManager>().defence = characterReader.defence;
+                m_Player.GetComponent<HealthManager>().speed = characterReader.speed;
+                m_Player.GetComponent<CharacterMovement>().MoveSpeed = characterReader.speed / 200;
                 //m_Player.SetActive(true); ;
                 //MainCamera.gameObject.SetActive(true);
                 Time.timeScale = 1;

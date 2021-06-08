@@ -46,6 +46,10 @@ public class CharacterReader : MonoBehaviour
     //public string[] m_characterSubclasses = new string[99];
     public InputField m_CharacterSlotInputer;
     public Text m_CharacterBlerb;
+    public float HP;
+    public float baseDamage;
+    public float defence;
+    public float speed;
     // Start is called before the first frame update
     void Start()
     {
@@ -291,7 +295,10 @@ public class CharacterReader : MonoBehaviour
         {
             image.color = m_ClassIconDisplay.color = m_Subclass.subclassColour;
         }
-
+        HP = m_Class.HP;
+        baseDamage = m_Class.baseDamage;
+        defence = m_Class.defence;
+        speed = m_Class.speed;
     }
     public void SelectPlayerSlot()
     {
