@@ -11,13 +11,11 @@ public class HealthManager : MonoBehaviour
     private float damage;
     GameManager GameManager;
     CharacterReader characterReader;
-    AttackManager atkManager;
     // Start is called before the first frame update
     void Start()
     {
         GameManager = Object.FindObjectOfType<GameManager>();
         characterReader = Object.FindObjectOfType<CharacterReader>();
-        atkManager = Object.FindObjectOfType<AttackManager>();
     }
 
     // Update is called once per frame
@@ -25,13 +23,7 @@ public class HealthManager : MonoBehaviour
     {
 
     }
-    public void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.GetComponent<AttackManager>().Attacking == true)
-        {
-            calculateDamage(characterReader.baseDamage, characterReader.m_Move1.damage, defence);
-        }
-    }
+
     public void calculateDamage(float baseDamage, float moveDamage, float defence)
     {
         damage = (baseDamage * moveDamage)/ defence;

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject[] m_Menus;
     EditorMenu editorMenu;
+    BattleScene battleScene;
     public GameObject m_Player;
     public Camera MainCamera;
     PlayerInfomation playerInfo;
@@ -17,7 +18,8 @@ public class GameManager : MonoBehaviour
     {
         Off,
         ChooseCharacter,
-        EditCharacter
+        EditCharacter,
+        BattleScene
     };
     public e_MenuState MenuState;
     public enum e_GameState
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
         editorMenu = Object.FindObjectOfType<EditorMenu>();
         playerInfo = Object.FindObjectOfType<PlayerInfomation>();
         characterReader = Object.FindObjectOfType<CharacterReader>();
+        battleScene = Object.FindObjectOfType<BattleScene>();
         Dropdown.OptionData fire = new Dropdown.OptionData();
         fire.text = "Fire";
         //dropdown.AddOptions(fire);
@@ -53,13 +56,6 @@ public class GameManager : MonoBehaviour
             case e_GameState.Start:
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                m_Player.GetComponent<HealthManager>().HP = characterReader.HP;
-                m_Player.GetComponent<HealthManager>().baseDamage = characterReader.baseDamage;
-                m_Player.GetComponent<HealthManager>().defence = characterReader.defence;
-                m_Player.GetComponent<HealthManager>().speed = characterReader.speed;
-                m_Player.GetComponent<CharacterMovement>().MoveSpeed = characterReader.speed / 200;
-                //m_Player.SetActive(true); ;
-                //MainCamera.gameObject.SetActive(true);
                 Time.timeScale = 1;
                 gameState = e_GameState.Playing;
                 break;
@@ -82,6 +78,10 @@ public class GameManager : MonoBehaviour
                 m_Menus[1].SetActive(true);
                 editorMenu.LoadEditor();
                 break;
+            case e_MenuState.BattleScene:
+                m_Menus[2].SetActive(true);
+                battleScene.LoadMoves();
+                break;
         }
     }
     public void StartGame()
@@ -93,6 +93,16 @@ public class GameManager : MonoBehaviour
     public void OpenEditor()
     {
         MenuState = e_MenuState.EditCharacter;
+        UpdateMenu();
+    }
+    public void OpenSelect()
+    {
+        MenuState = e_MenuState.ChooseCharacter;
+        UpdateMenu();
+    }
+    public void beginBattle()
+    {
+        MenuState = e_MenuState.BattleScene;
         UpdateMenu();
     }
 }

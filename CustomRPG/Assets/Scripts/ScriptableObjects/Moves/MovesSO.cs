@@ -6,7 +6,6 @@ using UnityEngine;
 public class MovesSO : ScriptableObject
 {
     PlayerInfomation playerInfo;
-    AttackManager atkManager;
     public WaitForSeconds waitTime;
     public string name;
     public enum MoveType
@@ -37,40 +36,19 @@ public class MovesSO : ScriptableObject
     void Start()
     {
         playerInfo = FindObjectOfType<PlayerInfomation>();
-        atkManager = FindObjectOfType<AttackManager>();
     }
     public void CastAttack()
     {
         switch (moveType)
         {
             case MoveType.melee:
-                MeleeAtk();
                 break;
             case MoveType.ranged:
                 Debug.Log("Casted " + name + " " + moveType + " attack");
                 break;
             case MoveType.boost:
-
                 Debug.Log("Casted " + name + " " + moveType);
                 break;
         }
-    }
-    IEnumerator MeleeAtk()
-    {
-        Debug.Log("Casting " + name + " " + moveType + " attack");
-        if (atkManager.Attacking == false)
-        {
-            atkManager.Attacking = true;
-            //enable rigidbody
-            yield return new WaitForSeconds(2);
-            //disable rigidbody
-            atkManager.Attacking = false;
-            Debug.Log("Casted " + name + " " + moveType + " attack");
-        }
-        else if (atkManager.Attacking == true)
-        {
-            Debug.Log(atkManager.Attacking);
-        }
-        atkManager.Attacking = false;
     }
 }

@@ -45,13 +45,28 @@ public class EditorMenu : MonoBehaviour
             Dropdowns[1].options.Add(option);
             localConuter++;
         }
-        for (int i = 2; i < 14; i += 4)
+
+        for (int i = 2; i <= 4; i++)
         {
+            localConuter = 0;
             foreach (ScriptableObject Move in CharacterInfo.moves)
             {
                 Dropdown.OptionData option = new Dropdown.OptionData();
-                option.text = CharacterInfo.moves[localConuter].name.ToString(); ;
+                option.text = CharacterInfo.moves[localConuter].name.ToString();
                 Dropdowns[i].options.Add(option);
+                localConuter++;
+            }
+
+        }
+        for (int i = 6; i <= 17; i++)
+        {
+            localConuter = 0;
+            foreach (ScriptableObject Move in CharacterInfo.cores)
+            {
+                Dropdown.OptionData option = new Dropdown.OptionData();
+                option.text = CharacterInfo.cores[localConuter].name.ToString();
+                Dropdowns[i].options.Add(option);
+                localConuter++;
             }
 
         }
