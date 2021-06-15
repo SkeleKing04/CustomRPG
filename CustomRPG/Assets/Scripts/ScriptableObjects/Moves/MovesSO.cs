@@ -6,19 +6,18 @@ using UnityEngine;
 public class MovesSO : ScriptableObject
 {
     PlayerInfomation playerInfo;
+    BattleScene battleScene;
     public WaitForSeconds waitTime;
     public string name;
     public enum MoveType
     {
-        melee,
-        ranged,
-        boost
+        phyical,
+        magical,
+        status
     }
     public MoveType moveType;
     public float damage;
-    public Collider hitBox;
-    public Rigidbody projectile;
-    public float projectileSpeed;
+    public float speed;
     public enum stats
     {
         NA,
@@ -30,24 +29,22 @@ public class MovesSO : ScriptableObject
     public stats boostStat;
     public float boostAmmount;
     public float boostDuration;
-    public float Cooldown;
+    public int powerPoint;
     //public effectSO[] effect;
     //private GameObject cores;
-    void Start()
-    {
-        playerInfo = FindObjectOfType<PlayerInfomation>();
-    }
     public void CastAttack()
     {
         switch (moveType)
         {
-            case MoveType.melee:
-                break;
-            case MoveType.ranged:
+            case MoveType.phyical:
+
                 Debug.Log("Casted " + name + " " + moveType + " attack");
                 break;
-            case MoveType.boost:
-                Debug.Log("Casted " + name + " " + moveType);
+            case MoveType.magical:
+                Debug.Log("Casted " + name + " " + moveType + " attack");
+                break;
+            case MoveType.status:
+                Debug.Log("Casted " + name + " " + moveType + " attack");
                 break;
         }
     }

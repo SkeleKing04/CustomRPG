@@ -13,6 +13,7 @@ public class CharacterMovement : MonoBehaviour
     private Terrain ground;
     public bool grounded;
     GameManager gameManager;
+    public GameObject shades;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,9 +37,10 @@ public class CharacterMovement : MonoBehaviour
                 //Quaternion cameraAngle = Quaternion.Euler(Input.GetAxis("Mouse Y") / 100, Input.GetAxis("Mouse X") / 100, 0);
                 //rotate player left and right
                 //rotate camera up and down
-                MainCamera.transform.Rotate(new Vector3(-(Input.GetAxis("Mouse Y")),0, 0) * RotateSpeed * Time.deltaTime);
-                MainCamera.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.eulerAngles.x,
-                0, 0);
+                //MainCamera.transform.Rotate(new Vector3(-(Input.GetAxis("Mouse Y")),0, 0) * RotateSpeed * Time.deltaTime);
+                shades.transform.Rotate(new Vector3(-(Input.GetAxis("Mouse Y")), 0, 0) * RotateSpeed * Time.deltaTime);
+                //MainCamera.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.eulerAngles.x, 0, 0);
+                shades.transform.localRotation = Quaternion.Euler(shades.transform.localRotation.eulerAngles.x, 0, 0);
                 break;
         }
 

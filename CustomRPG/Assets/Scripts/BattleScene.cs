@@ -17,14 +17,33 @@ public class BattleScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
     public void LoadMoves()
     {
-
-        Buttons[0].GetComponentInChildren<Text>().text = characterReader.m_Move1.name;
-        Buttons[1].GetComponentInChildren<Text>().text = characterReader.m_Move2.name;
-        Buttons[2].GetComponentInChildren<Text>().text = characterReader.m_Move3.name;
-        Buttons[3].GetComponentInChildren<Text>().text = characterReader.m_Move4.name;
+        for(int i = 0; i < 4; i++)
+        {
+            Buttons[i].GetComponentInChildren<Text>().text = characterReader.moveInfo.m_Move[i].name;
+        }
     }
+    public void initializeFight()
+    {
+
+    }
+    public void CastFirstAttack()
+    {
+        characterReader.moveInfo.m_Move[0].CastAttack();
+    }
+    public void CastSecondAttack()
+    {
+        characterReader.moveInfo.m_Move[1].CastAttack();
+    }
+    public void CastThirdAttack()
+    {
+        characterReader.moveInfo.m_Move[2].CastAttack();
+    }
+    public void CastForthAttack()
+    {
+        characterReader.moveInfo.m_Move[3].CastAttack();
+    }
+
 }
