@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7712f9bcf7b11c4cb433fbbbce572e4, type: 3}
-  m_Name: Core
+  m_Name: SpeedCore
   m_EditorClassIdentifier: 
-  name: 
-  ForSubclass: {fileID: 11400000, guid: a46f28857a862f24dbc7661c9ffb7a65, type: 2}
+  name: SpeedCore
+  ForSubclass: {fileID: 0}

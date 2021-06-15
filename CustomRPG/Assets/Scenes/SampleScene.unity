@@ -1369,7 +1369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9f7a4ba404ff94f8576ed01b654f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CharacterData: 7140940271118720809133637643joe
+  m_CharacterData: 
   m_Character: 
   m_Class: {fileID: 0}
   m_Subclass: {fileID: 0}
@@ -1540,6 +1540,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6ab7da5e8006f9d49b6441292f066cda, type: 2}
   cores:
   - {fileID: 11400000, guid: 5e55d6c341b491540b2f0e9c0a8169d9, type: 2}
+  - {fileID: 11400000, guid: 471dda46112bf5341ba0571c7d869558, type: 2}
+  - {fileID: 11400000, guid: c0339bfd9f0ba684eabe6a7fe6b7d181, type: 2}
+  - {fileID: 11400000, guid: cc6db9b768d4ba44db3bd2b96cb1fc3b, type: 2}
 --- !u!114 &162764345
 MonoBehaviour:
   m_ObjectHideFlags: 0

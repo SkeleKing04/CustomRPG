@@ -114,14 +114,14 @@ public class CharacterReader : MonoBehaviour
             image.gameObject.SetActive(false);
         }
         //Class
-        Debug.Log("Current Index - " + m_CurrentIndex);
+        //Debug.Log("Current Index - " + m_CurrentIndex);
         m_Class = CharacterInfo.classes[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
         m_ClassIconDisplay.sprite = m_Class.classIcon;
         m_CurrentIndex += 2;
         m_TheoreticalLength += 2;
 
         //Subclass
-        Debug.Log("Current Index - " + m_CurrentIndex);
+        //Debug.Log("Current Index - " + m_CurrentIndex);
         m_Subclass = CharacterInfo.subclasses[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
         m_ClassIconDisplay.color = m_Subclass.subclassColour;
         m_CurrentIndex += 2;
@@ -130,40 +130,41 @@ public class CharacterReader : MonoBehaviour
         //Moves
         for (int a = 0; a < 4; a++)
         {
-            Debug.Log("Current Index - " + m_CurrentIndex);
+            Debug.Log("a is " + a);
+            //Debug.Log("Current Index - " + m_CurrentIndex);
             moveInfo.m_Move[a] = CharacterInfo.moves[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
             m_CurrentIndex += 2;
             m_TheoreticalLength += 2;
-            Debug.Log("Current Index - " + m_CurrentIndex);
+            //Debug.Log("Current Index - " + m_CurrentIndex);
             moveInfo.m_MoveCoreCount[a] = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString());
             m_CurrentIndex++;
             m_TheoreticalLength++;
-            Debug.Log("Current Index - " + m_CurrentIndex);
+            //Debug.Log("Current Index - " + m_CurrentIndex);
             for (int i = moveInfo.m_MoveCoreCount[a]; i > 0; i--)
             {
                 Debug.Log(i);
                 switch (i)
                 {
                     case 1:
-                        moveInfo.m_MoveCore1[0] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+                        moveInfo.m_MoveCore1[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
                         m_CurrentIndex += 2;
                         m_TheoreticalLength += 2;
-                        Debug.Log("11Current Index - " + m_CurrentIndex);
-                        m_MoveCoreDisplay[a].gameObject.SetActive(true);
+                        //Debug.Log("11Current Index - " + m_CurrentIndex);
+                        m_MoveCoreDisplay[(i) + (a + 1)].gameObject.SetActive(true);
                         break;
                     case 2:
                         moveInfo.m_MoveCore2[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
                         m_CurrentIndex += 2;
                         m_TheoreticalLength += 2;
-                        Debug.Log("12Current Index - " + m_CurrentIndex);
-                        m_MoveCoreDisplay[1].gameObject.SetActive(true);
+                        //Debug.Log("12Current Index - " + m_CurrentIndex);
+                        m_MoveCoreDisplay[(i) + (a + 1)].gameObject.SetActive(true);
                         break;
                     case 3:
                         moveInfo.m_MoveCore3[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
                         m_CurrentIndex += 2;
                         m_TheoreticalLength += 2;
-                        Debug.Log("13Current Index - " + m_CurrentIndex);
-                        m_MoveCoreDisplay[2].gameObject.SetActive(true);
+                        //Debug.Log("13Current Index - " + m_CurrentIndex);
+                        m_MoveCoreDisplay[(i) + (a + 1)].gameObject.SetActive(true);
                         break;
                     default:
                         Debug.Log("ILLIGAL CHARACTER. ABORTING");
@@ -295,7 +296,7 @@ public class CharacterReader : MonoBehaviour
         m_CharacterName = "";
         for (int i = m_TheoreticalLength; i < m_CharacterData.Length; i++)
         {
-            Debug.Log(m_TheoreticalLength);
+            //Debug.Log(m_TheoreticalLength);
             m_CharacterName += m_CharacterData[i];
             m_TheoreticalLength++;
         }
@@ -312,10 +313,10 @@ public class CharacterReader : MonoBehaviour
     public void SelectPlayerSlot()
     {
         int i = Convert.ToInt32(m_CharacterSlotInputer.text);
-        Debug.Log(i);
+        //Debug.Log(i);
         if (i > m_SavedCharacters.Length)
         {
-            Debug.Log("TOO LONG");
+            //Debug.Log("TOO LONG");
             return;
         }
         m_CharacterData = m_SavedCharacters[i - 1];
