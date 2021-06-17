@@ -22,7 +22,7 @@ public class BattleScene : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            Buttons[i].GetComponentInChildren<Text>().text = characterReader.moveInfo.m_Move[i].name;
+            Buttons[i].GetComponentInChildren<Text>().text = characterReader.moveInfo[0].m_Move[i].name;
         }
     }
     public void initializeFight()
@@ -31,19 +31,19 @@ public class BattleScene : MonoBehaviour
     }
     public void CastFirstAttack()
     {
-        characterReader.moveInfo.m_Move[0].CastAttack();
+        characterReader.moveInfo[0].m_Move[0].CastAttack(characterReader.HP[0], characterReader.baseDamage[0], characterReader.defence[0], characterReader.speed[0], characterReader.moveInfo[0].m_Move[0].damage, 10, 10, 10, 10);
     }
     public void CastSecondAttack()
     {
-        characterReader.moveInfo.m_Move[1].CastAttack();
+        characterReader.moveInfo[0].m_Move[1].CastAttack(characterReader.HP[0], characterReader.baseDamage[0], characterReader.defence[0], characterReader.speed[0], characterReader.moveInfo[0].m_Move[0].damage, 10, 10, 10, 10);
     }
     public void CastThirdAttack()
     {
-        characterReader.moveInfo.m_Move[2].CastAttack();
+        characterReader.moveInfo[0].m_Move[2].CastAttack(characterReader.HP[0], characterReader.baseDamage[0], characterReader.defence[0], characterReader.speed[0], characterReader.moveInfo[0].m_Move[0].damage, 10, 10, 10, 10);
     }
     public void CastForthAttack()
     {
-        characterReader.moveInfo.m_Move[3].CastAttack();
+        characterReader.moveInfo[0].m_Move[3].CastAttack(characterReader.HP[0], characterReader.baseDamage[0], characterReader.defence[0], characterReader.speed[0], characterReader.moveInfo[0].m_Move[0].damage, 10, 10, 10, 10);
     }
 
 }
