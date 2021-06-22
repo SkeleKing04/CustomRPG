@@ -33,8 +33,4 @@ public class MovesSO : ScriptableObject
     public int powerPoint;
     //public effectSO[] effect;
     //private GameObject cores;
-    public void CastAttack(float senderHP, float senderBaseDamage, float senderDefence, float senderSpeed, float moveDamage, float targetHP, float targetBaseDamage, float targetDefence, float targetSpeed)
-    {
-        
-    }
 }

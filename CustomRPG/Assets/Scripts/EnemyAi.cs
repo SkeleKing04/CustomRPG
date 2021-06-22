@@ -38,8 +38,11 @@ public class EnemyAi : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        gameManager.gameState = GameManager.e_GameState.Paused;
-        gameManager.MenuState = GameManager.e_MenuState.BattleScene;
-        gameManager.UpdateMenu();
+        if(collision.gameObject.tag == "Player")
+        {
+
+            gameManager.beginBattle();
+        }
+
     }
 }

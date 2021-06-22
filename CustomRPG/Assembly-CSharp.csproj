@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\EditorMenu.cs" />
     <Compile Include="Assets\Scripts\EnemyAi.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\HUDControl.cs" />
     <Compile Include="Assets\Scripts\HealthManager.cs" />
     <Compile Include="Assets\Scripts\PlayerInfomation.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Classes\ClassesSO.cs" />

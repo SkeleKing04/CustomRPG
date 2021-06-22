@@ -9,6 +9,7 @@ public class BattleScene : MonoBehaviour
     CharacterInfoManager characterInfo;
     public Button[] Buttons;
     public Text infoText;
+    public int enemies;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,40 +30,45 @@ public class BattleScene : MonoBehaviour
     }
     public void initializeFight()
     {
-        characterReader.character[4].m_Class = characterInfo.classes[Random.Range(0, characterInfo.classes.Length - 1)];
-        characterReader.character[4].m_Subclass = characterInfo.subclasses[Random.Range(0, characterInfo.subclasses.Length - 1)];
-        for (int i = 0; i < 4; i++)
+        enemies = Random.Range(1, 4);
+        for (int x = 4 + enemies; x > 3; x--)
         {
-            characterReader.character[4].moveInfo.m_Move[i] = characterInfo.moves[Random.Range(0, characterInfo.moves.Length - 1)];
-            characterReader.character[4].moveInfo.m_MoveCoreCount[i] = Random.Range(0, 4);
-            for (int a = characterReader.character[4].moveInfo.m_MoveCoreCount[i]; a > 0; a--)
+            characterReader.character[x].m_Class = characterInfo.classes[Random.Range(0, characterInfo.classes.Length - 1)];
+            characterReader.character[x].m_Subclass = characterInfo.subclasses[Random.Range(0, characterInfo.subclasses.Length - 1)];
+            for (int i = 0; i < 4; i++)
             {
-                Debug.Log(a);
-                switch (a)
+                characterReader.character[x].moveInfo.m_Move[i] = characterInfo.moves[Random.Range(0, characterInfo.moves.Length - 1)];
+                characterReader.character[x].moveInfo.m_MoveCoreCount[i] = Random.Range(0, 4);
+                for (int a = characterReader.character[x].moveInfo.m_MoveCoreCount[i]; a > 0; a--)
                 {
-                    case 1:
-                        characterReader.character[4].moveInfo.m_MoveCore1[i] = characterInfo.cores[Random.Range(0, characterInfo.cores.Length - 1)];
-                        //Debug.Log("11Current Index - " + m_CurrentIndex);
-                        break;
-                    case 2:
-                        characterReader.character[4].moveInfo.m_MoveCore2[i] = characterInfo.cores[Random.Range(0, characterInfo.cores.Length - 1)];
-                        //Debug.Log("12Current Index - " + m_CurrentIndex);
-                        break;
-                    case 3:
-                        characterReader.character[4].moveInfo.m_MoveCore3[i] = characterInfo.cores[Random.Range(0, characterInfo.cores.Length - 1)];
-                        //Debug.Log("13Current Index - " + m_CurrentIndex);
-                        break;
-                    default:
-                        Debug.Log("ILLIGAL CHARACTER. ABORTING");
-                        Application.Quit();
-                        return;
+                    Debug.Log(a);
+                    switch (a)
+                    {
+                        case 1:
+                            characterReader.character[x].moveInfo.m_MoveCore1[i] = characterInfo.cores[Random.Range(0, characterInfo.cores.Length - 1)];
+                            //Debug.Log("11Current Index - " + m_CurrentIndex);
+                            break;
+                        case 2:
+                            characterReader.character[x].moveInfo.m_MoveCore2[i] = characterInfo.cores[Random.Range(0, characterInfo.cores.Length - 1)];
+                            //Debug.Log("12Current Index - " + m_CurrentIndex);
+                            break;
+                        case 3:
+                            characterReader.character[x].moveInfo.m_MoveCore3[i] = characterInfo.cores[Random.Range(0, characterInfo.cores.Length - 1)];
+                            //Debug.Log("13Current Index - " + m_CurrentIndex);
+                            break;
+                        default:
+                            Debug.Log("ILLIGAL CHARACTER. ABORTING");
+                            Application.Quit();
+                            return;
+                    }
                 }
             }
+            characterReader.character[x].HP = characterReader.character[x].m_Class.HP;
+            characterReader.character[x].baseDamage = characterReader.character[x].m_Class.baseDamage;
+            characterReader.character[x].defence = characterReader.character[x].m_Class.defence;
+            characterReader.character[x].speed = characterReader.character[x].m_Class.speed;
         }
-        characterReader.character[4].HP = characterReader.character[4].m_Class.HP;
-        characterReader.character[4].baseDamage = characterReader.character[4].m_Class.baseDamage;
-        characterReader.character[4].defence = characterReader.character[4].m_Class.defence;
-        characterReader.character[4].speed = characterReader.character[4].m_Class.speed;
+
     }
     public void CastFirstAttack()
     {
@@ -137,6 +143,27 @@ public class BattleScene : MonoBehaviour
                 }
                 Debug.Log("Casted " + characterReader.character[sender].moveInfo.m_Move[moveNum].name + " " + characterReader.character[sender].moveInfo.m_Move[moveNum].moveType + " attack");
                 break;
+        }
+        DeathCheck(target);
+    }
+    public void DeathCheck(int target)
+    {
+        if (characterReader.character[target].HP <= 0)
+        {
+            if (target == 0)
+            {
+                Debug.Log("The player has died... GAME OVER");
+            }
+            else if (target >= 4)
+            {
+                Debug.Log("Target at " + target + " been killed");
+                enemies--;
+            }
+            else
+            {
+                Debug.Log("Target at " + target + " has died");
+
+            }
         }
     }
 }
