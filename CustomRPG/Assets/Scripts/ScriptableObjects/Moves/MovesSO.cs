@@ -35,58 +35,6 @@ public class MovesSO : ScriptableObject
     //private GameObject cores;
     public void CastAttack(float senderHP, float senderBaseDamage, float senderDefence, float senderSpeed, float moveDamage, float targetHP, float targetBaseDamage, float targetDefence, float targetSpeed)
     {
-        int damage = 0;
-        switch (moveType)
-        {
-            case MoveType.phyical:
-                int rnd = Mathf.FloorToInt((Random.Range(10, 21)) / 10);
-                damage = (Mathf.FloorToInt(Mathf.RoundToInt(senderBaseDamage * moveDamage / 2)/ targetDefence)) * rnd;
-                Debug.Log("Casted " + name + " " + moveType + " attack!\nIt dealt " + damage.ToString() + " damage." + rnd);
-                break;
-            case MoveType.magical:
-                damage = (Mathf.FloorToInt(Mathf.RoundToInt((moveDamage * 10) / targetDefence)));
-                Debug.Log("Casted " + name + " " + moveType + " attack!\nIt dealt " + damage.ToString() + " damage.");
-                break;
-            case MoveType.status:
-                switch (effectTarget)
-                {
-                    case false:
-                        switch (boostStat)
-                        {
-                            case stats.HP:
-                                senderHP += boostAmmount;
-                                break;
-                            case stats.baseDamage:
-                                senderBaseDamage += boostAmmount;
-                                break;
-                            case stats.defence:
-                                senderDefence += boostAmmount;
-                                break;
-                            case stats.speed:
-                                senderSpeed += boostAmmount;
-                                break;
-                        }
-                        break;
-                    case true:
-                        switch (boostStat)
-                        {
-                            case stats.HP:
-                                targetHP += boostAmmount;
-                                break;
-                            case stats.baseDamage:
-                                targetBaseDamage += boostAmmount;
-                                break;
-                            case stats.defence:
-                                targetDefence += boostAmmount;
-                                break;
-                            case stats.speed:
-                                targetSpeed += boostAmmount;
-                                break;
-                        }
-                        break;
-                }
-                Debug.Log("Casted " + name + " " + moveType + " attack");
-                break;
-        }
+        
     }
 }

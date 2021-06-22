@@ -13,9 +13,7 @@ public class CharacterReader : MonoBehaviour
     public string m_CharacterData;
     public int m_CharacterSlot;
     private int m_CurrentIndex;
-    public ClassesSO[] m_Class = new ClassesSO[10];
-    public SubclassesSO[] m_Subclass = new SubclassesSO[10];
-    public MoveInfo[] moveInfo = new MoveInfo[10];
+    public CharacterArray[] character = new CharacterArray[10];
     /*public MovesSO m_Move1;
     public int m_Move1CoreCount;
     public CoreSO m_Move1Core1 ;
@@ -36,7 +34,7 @@ public class CharacterReader : MonoBehaviour
     public CoreSO m_Move4Core1;
     public CoreSO m_Move4Core2;
     public CoreSO m_Move4Core3;*/
-    public string[] m_CharacterName = new string[10];
+
     public int m_TheoreticalLength;
     public string currentDirectory;
     public Image m_ClassIconDisplay;
@@ -47,11 +45,19 @@ public class CharacterReader : MonoBehaviour
     //public string[] m_characterSubclasses = new string[99];
     public InputField m_CharacterSlotInputer;
     public Text m_CharacterBlerb;
-    public float[] HP;
-    public float[] baseDamage;
-    public float[] defence;
-    public float[] speed;
 
+    [System.Serializable]
+    public class CharacterArray
+    {
+        public ClassesSO m_Class;
+        public SubclassesSO m_Subclass;
+        public MoveInfo moveInfo;
+        public string m_CharacterName;
+        public float HP;
+        public float baseDamage;
+        public float defence;
+        public float speed;
+    }
     [System.Serializable]
     public class MoveInfo
     {
@@ -97,10 +103,11 @@ public class CharacterReader : MonoBehaviour
     }
     public void LoadPlayer()
     {
+        Debug.Log(Convert.ToInt32(m_CharacterSlotInputer.text) - 1);
         m_CharacterSlot = Convert.ToInt32(m_CharacterSlotInputer.text) - 1;
         m_CurrentIndex = 0;
         m_TheoreticalLength = 0;
-        m_Class[m_CharacterSlot] = null;
+        /*m_Class[m_CharacterSlot] = null;
         m_Subclass[m_CharacterSlot] = null;
         for (int i = 0; i < 4; i++)
         {
@@ -109,22 +116,22 @@ public class CharacterReader : MonoBehaviour
             moveInfo[m_CharacterSlot].m_MoveCore1[i] = null;
             moveInfo[m_CharacterSlot].m_MoveCore2[i] = null;
             moveInfo[m_CharacterSlot].m_MoveCore3[i] = null;
-        }
+        }*/
         foreach (Image image in m_MoveCoreDisplay)
         {
             image.gameObject.SetActive(false);
         }
         //Class
         //Debug.Log("Current Index - " + m_CurrentIndex);
-        m_Class[m_CharacterSlot] = CharacterInfo.classes[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
-        m_ClassIconDisplay.sprite = m_Class[m_CharacterSlot].classIcon;
+        character[m_CharacterSlot].m_Class = CharacterInfo.classes[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+        m_ClassIconDisplay.sprite = character[m_CharacterSlot].m_Class.classIcon;
         m_CurrentIndex += 2;
         m_TheoreticalLength += 2;
 
         //Subclass
         //Debug.Log("Current Index - " + m_CurrentIndex);
-        m_Subclass[m_CharacterSlot] = CharacterInfo.subclasses[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
-        m_ClassIconDisplay.color = m_Subclass[m_CharacterSlot].subclassColour;
+        character[m_CharacterSlot].m_Subclass = CharacterInfo.subclasses[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+        m_ClassIconDisplay.color = character[m_CharacterSlot].m_Subclass.subclassColour;
         m_CurrentIndex += 2;
         m_TheoreticalLength += 2;
 
@@ -133,29 +140,29 @@ public class CharacterReader : MonoBehaviour
         {
             Debug.Log("a is " + a);
             //Debug.Log("Current Index - " + m_CurrentIndex);
-            moveInfo[m_CharacterSlot].m_Move[a] = CharacterInfo.moves[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+            character[m_CharacterSlot].moveInfo.m_Move[a] = CharacterInfo.moves[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
             m_CurrentIndex += 2;
             m_TheoreticalLength += 2;
             //Debug.Log("Current Index - " + m_CurrentIndex);
-            moveInfo[m_CharacterSlot].m_MoveCoreCount[a] = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString());
+            character[m_CharacterSlot].moveInfo.m_MoveCoreCount[a] = Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString());
             m_CurrentIndex++;
             m_TheoreticalLength++;
             //Debug.Log("Current Index - " + m_CurrentIndex);
-            for (int i = moveInfo[m_CharacterSlot].m_MoveCoreCount[a]; i > 0; i--)
+            for (int i = character[m_CharacterSlot].moveInfo.m_MoveCoreCount[a]; i > 0; i--)
             {
                 Debug.Log(i);
                 switch (i)
                 {
                     case 1:
-                        moveInfo[m_CharacterSlot].m_MoveCore1[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+                        character[m_CharacterSlot].moveInfo.m_MoveCore1[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
                         //Debug.Log("11Current Index - " + m_CurrentIndex);
                         break;
                     case 2:
-                        moveInfo[m_CharacterSlot].m_MoveCore2[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+                        character[m_CharacterSlot].moveInfo.m_MoveCore2[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
                         //Debug.Log("12Current Index - " + m_CurrentIndex);
                         break;
                     case 3:
-                        moveInfo[m_CharacterSlot].m_MoveCore3[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+                        character[m_CharacterSlot].moveInfo.m_MoveCore3[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
                         //Debug.Log("13Current Index - " + m_CurrentIndex);
                         break;
                     default:
@@ -168,22 +175,22 @@ public class CharacterReader : MonoBehaviour
                 m_MoveCoreDisplay[((3 * a) + i) - 1].gameObject.SetActive(true);
             }
         }
-        m_CharacterName[m_CharacterSlot] = "";
+        character[m_CharacterSlot].m_CharacterName = "";
         for (int i = m_TheoreticalLength; i < m_CharacterData.Length; i++)
         {
             //Debug.Log(m_TheoreticalLength);
-            m_CharacterName[m_CharacterSlot] += m_CharacterData[i];
+            character[m_CharacterSlot].m_CharacterName += m_CharacterData[i];
             m_TheoreticalLength++;
         }
-        m_CharacterBlerb.text = m_Subclass[m_CharacterSlot].name + " " + m_Class[m_CharacterSlot].name + " " + m_CharacterName;
+        m_CharacterBlerb.text = character[m_CharacterSlot].m_Subclass.name + " " + character[m_CharacterSlot].m_Class.name + " " + character[m_CharacterSlot].m_CharacterName;
         foreach (Image image in m_MoveCoreDisplay)
         {
-            image.color = m_ClassIconDisplay.color = m_Subclass[m_CharacterSlot].subclassColour;
+            image.color = m_ClassIconDisplay.color = character[m_CharacterSlot].m_Subclass.subclassColour;
         }
-        HP[m_CharacterSlot] = m_Class[m_CharacterSlot].HP;
-        baseDamage[m_CharacterSlot] = m_Class[m_CharacterSlot].baseDamage;
-        defence[m_CharacterSlot] = m_Class[m_CharacterSlot].defence;
-        speed[m_CharacterSlot] = m_Class[m_CharacterSlot].speed;
+        character[m_CharacterSlot].HP = character[m_CharacterSlot].m_Class.HP;
+        character[m_CharacterSlot].baseDamage = character[m_CharacterSlot].m_Class.baseDamage;
+        character[m_CharacterSlot].defence = character[m_CharacterSlot].m_Class.defence;
+        character[m_CharacterSlot].speed = character[m_CharacterSlot].m_Class.speed;
     }
     public void SelectPlayerSlot()
     {
