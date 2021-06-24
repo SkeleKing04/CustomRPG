@@ -9,6 +9,7 @@ public class EnemyAi : MonoBehaviour
     GameManager gameManager;
     private NavMeshAgent m_NavAgent;
     private Rigidbody m_rigidbody;
+    public GameObject self;
     private bool following;
     // Start is called before the first frame update
     private void Awake()
@@ -40,8 +41,8 @@ public class EnemyAi : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-
             gameManager.beginBattle();
+            Destroy(self);
         }
 
     }

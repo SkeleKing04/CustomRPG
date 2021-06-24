@@ -7,14 +7,19 @@ public class BattleScene : MonoBehaviour
 {
     CharacterReader characterReader;
     CharacterInfoManager characterInfo;
+    GameManager gameManager;
+    public GameObject[] optionBoxes;
     public Button[] Buttons;
     public Text infoText;
     public int enemies;
+    public int selectedAttack;
+    public int target;
     // Start is called before the first frame update
     void Start()
     {
         characterReader = GetComponent<CharacterReader>();
         characterInfo = GetComponent<CharacterInfoManager>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -67,84 +72,114 @@ public class BattleScene : MonoBehaviour
             characterReader.character[x].baseDamage = characterReader.character[x].m_Class.baseDamage;
             characterReader.character[x].defence = characterReader.character[x].m_Class.defence;
             characterReader.character[x].speed = characterReader.character[x].m_Class.speed;
+            Buttons[x].gameObject.SetActive(true);
         }
 
     }
-    public void CastFirstAttack()
+    public void selectFirstAttack()
     {
-        CastAttack(0, 0, 4);
+        selectedAttack = 0;
+        chooseTarget();
     }
-    public void CastSecondAttack()
+    public void selectSecondAttack()
     {
-        CastAttack(0, 1, 4);
-    }
-    public void CastThirdAttack()
-    {
-        CastAttack(0, 2, 4);
-    }
-    public void CastForthAttack()
-    {
-        CastAttack(0, 3, 4);
-    }
+        selectedAttack = 1;
+        chooseTarget();
 
-    public void CastAttack(int sender, int moveNum, int target)
+    }
+    public void selectThirdAttack()
     {
+        selectedAttack = 2;
+        chooseTarget();
+
+    }
+    public void selectFourthAttack()
+    {
+        selectedAttack = 3;
+        chooseTarget();
+
+    }
+    public void selectFirstTarget()
+    {
+        target = 4;
+        CastAttack();
+    }
+    public void selectSecondTarget()
+    {
+        target = 5;
+        CastAttack();
+    }
+    public void selectThirdTarget()
+    {
+        target = 6;
+        CastAttack();
+    }
+    public void selectFourthTarget()
+    {
+        target = 7;
+        CastAttack();
+    }
+    public void CastAttack()
+    {
+        int sender = 0;
         int damage = 0;
-        switch (characterReader.character[sender].moveInfo.m_Move[moveNum].moveType)
+        switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].moveType)
         {
             case MovesSO.MoveType.phyical:
                 int rnd = Mathf.FloorToInt((Random.Range(10, 21)) / 10);
-                damage = (Mathf.FloorToInt(Mathf.RoundToInt(characterReader.character[sender].baseDamage * characterReader.character[sender].moveInfo.m_Move[moveNum].damage / 2) / characterReader.character[target].defence)) * rnd;
+                damage = (Mathf.FloorToInt(Mathf.RoundToInt(characterReader.character[sender].baseDamage * characterReader.character[sender].moveInfo.m_Move[selectedAttack].damage / 2) / characterReader.character[target].defence)) * rnd;
                 characterReader.character[target].HP -= damage;
-                Debug.Log("Casted " + name + " " + characterReader.character[sender].moveInfo.m_Move[moveNum].moveType + " attack!\nIt dealt " + damage.ToString() + " damage." + rnd);
+                infoText.text = ("Used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + " on target " + target + "!\nIt dealt " + damage.ToString() + " damage.");
                 break;
             case MovesSO.MoveType.magical:
-                damage = (Mathf.FloorToInt(Mathf.RoundToInt((characterReader.character[sender].moveInfo.m_Move[moveNum].damage * 10) / characterReader.character[target].defence)));
+                damage = (Mathf.FloorToInt(Mathf.RoundToInt((characterReader.character[sender].moveInfo.m_Move[selectedAttack].damage * 10) / characterReader.character[target].defence)));
                 characterReader.character[target].HP -= damage;
-                Debug.Log("Casted " + name + " " + characterReader.character[sender].moveInfo.m_Move[moveNum].moveType + " attack!\nIt dealt " + damage.ToString() + " damage.");
+                infoText.text = ("Used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + " on target " + target + "!\nIt dealt " + damage.ToString() + " damage.");
                 break;
             case MovesSO.MoveType.status:
-                switch (characterReader.character[sender].moveInfo.m_Move[moveNum].effectTarget)
+                switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].effectTarget)
                 {
                     case false:
-                        switch (characterReader.character[sender].moveInfo.m_Move[moveNum].boostStat)
+                        switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat)
                         {
                             case MovesSO.stats.HP:
-                                characterReader.character[sender].HP += characterReader.character[sender].moveInfo.m_Move[moveNum].boostAmmount;
+                                characterReader.character[sender].HP += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                             case MovesSO.stats.baseDamage:
-                                characterReader.character[sender].baseDamage += characterReader.character[sender].moveInfo.m_Move[moveNum].boostAmmount;
+                                characterReader.character[sender].baseDamage += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                             case MovesSO.stats.defence:
-                                characterReader.character[sender].defence += characterReader.character[sender].moveInfo.m_Move[moveNum].boostAmmount;
+                                characterReader.character[sender].defence += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                             case MovesSO.stats.speed:
-                                characterReader.character[sender].speed += characterReader.character[sender].moveInfo.m_Move[moveNum].boostAmmount;
+                                characterReader.character[sender].speed += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                         }
+                        infoText.text = ("Effected yourself with " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + ".\nYou receved " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount + " to " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat + "!");
                         break;
                     case true:
-                        switch (characterReader.character[sender].moveInfo.m_Move[moveNum].boostStat)
+                        switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat)
                         {
                             case MovesSO.stats.HP:
-                                characterReader.character[target].HP += characterReader.character[sender].moveInfo.m_Move[moveNum].boostAmmount;
+                                characterReader.character[target].HP += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                             case MovesSO.stats.baseDamage:
-                                characterReader.character[target].baseDamage += characterReader.character[sender].moveInfo.m_Move[moveNum].boostAmmount;
+                                characterReader.character[target].baseDamage += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                             case MovesSO.stats.defence:
-                                characterReader.character[target].defence += characterReader.character[sender].moveInfo.m_Move[moveNum].boostAmmount;
+                                characterReader.character[target].defence += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                             case MovesSO.stats.speed:
-                                characterReader.character[target].speed += characterReader.character[sender].moveInfo.m_Move[moveNum].boostAmmount;
+                                characterReader.character[target].speed += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                         }
+                        infoText.text = ("Effected target " + target + " with " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + ".\nThey receved " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount + " to " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat + "!");
                         break;
                 }
-                Debug.Log("Casted " + characterReader.character[sender].moveInfo.m_Move[moveNum].name + " " + characterReader.character[sender].moveInfo.m_Move[moveNum].moveType + " attack");
                 break;
         }
         DeathCheck(target);
+        chooseMove();
     }
     public void DeathCheck(int target)
     {
@@ -152,18 +187,34 @@ public class BattleScene : MonoBehaviour
         {
             if (target == 0)
             {
-                Debug.Log("The player has died... GAME OVER");
+                infoText.text = ("The player has died... GAME OVER");
             }
             else if (target >= 4)
             {
-                Debug.Log("Target at " + target + " been killed");
+                infoText.text = ("Target at " + target + " been killed");
+                Buttons[target].gameObject.SetActive(false);
                 enemies--;
             }
             else
             {
-                Debug.Log("Target at " + target + " has died");
+                infoText.text = ("Target at " + target + " has died");
 
             }
         }
+        if (enemies <= 0)
+        {
+            gameManager.ResumeGame();
+        }
+    }
+    public void chooseMove()
+    {
+        optionBoxes[1].gameObject.SetActive(false);
+        optionBoxes[0].gameObject.SetActive(true);
+    }
+    public void chooseTarget()
+    {
+        optionBoxes[0].gameObject.SetActive(false);
+        optionBoxes[1].gameObject.SetActive(true);
+
     }
 }

@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour
     {
         Paused,
         Start,
-        Playing
+        Playing,
+        Resume
     };
     public e_GameState gameState;
     // Start is called before the first frame update
@@ -64,6 +65,16 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 1;
                 gameState = e_GameState.Playing;
                 break;
+            case e_GameState.Playing:
+                break;
+            case e_GameState.Resume:
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                Time.timeScale = 1;
+                gameState = e_GameState.Playing;
+                break;
+
+
         }
     }
     public void UpdateMenu()
@@ -99,6 +110,11 @@ public class GameManager : MonoBehaviour
         gameState = e_GameState.Start;
         MenuState = e_MenuState.OverworldHUD;
         UpdateMenu();
+    }
+    public void ResumeGame()
+    {
+        gameState = e_GameState.Resume;
+        MenuState = e_MenuState.OverworldHUD;
     }
     public void OpenEditor()
     {
