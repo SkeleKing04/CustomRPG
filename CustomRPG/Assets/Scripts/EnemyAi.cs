@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class EnemyAi : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class EnemyAi : MonoBehaviour
     private Rigidbody m_rigidbody;
     public GameObject self;
     private bool following;
+    public UnityEvent onTrigger;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -37,13 +39,16 @@ public class EnemyAi : MonoBehaviour
             //m_NavAgent.isStopped = true;
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            gameManager.beginBattle();
-            Destroy(self);
-        }
-
+            die();
+            onTrigger.Invoke();
+        }   
+    }
+    public void die()
+    {
+        Destroy(self);
     }
 }

@@ -13,7 +13,9 @@ public class BattleScene : MonoBehaviour
     public Text infoText;
     public int enemies;
     public int selectedAttack;
+    public int playerTarget;
     public int target;
+    public int[] turnOrder;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,56 +74,57 @@ public class BattleScene : MonoBehaviour
             characterReader.character[x].baseDamage = characterReader.character[x].m_Class.baseDamage;
             characterReader.character[x].defence = characterReader.character[x].m_Class.defence;
             characterReader.character[x].speed = characterReader.character[x].m_Class.speed;
-            Buttons[x].gameObject.SetActive(true);
+            characterReader.character[x].m_CharacterName = "Enemy " + x.ToString();
+            Buttons[x - 1].gameObject.SetActive(true);
         }
 
     }
     public void selectFirstAttack()
     {
         selectedAttack = 0;
+        infoText.text = "Select a target.";
         chooseTarget();
     }
     public void selectSecondAttack()
     {
         selectedAttack = 1;
+        infoText.text = "Select a target.";
         chooseTarget();
-
     }
     public void selectThirdAttack()
     {
         selectedAttack = 2;
+        infoText.text = "Select a target.";
         chooseTarget();
-
     }
     public void selectFourthAttack()
     {
         selectedAttack = 3;
+        infoText.text = "Select a target.";
         chooseTarget();
-
     }
     public void selectFirstTarget()
     {
-        target = 4;
-        CastAttack();
+        playerTarget = 4;
+        setTurnOrder();
     }
     public void selectSecondTarget()
     {
-        target = 5;
-        CastAttack();
+        playerTarget = 5;
+        setTurnOrder();
     }
     public void selectThirdTarget()
     {
-        target = 6;
-        CastAttack();
+        playerTarget = 6;
+        setTurnOrder();
     }
     public void selectFourthTarget()
     {
-        target = 7;
-        CastAttack();
+        playerTarget = 7;
+        setTurnOrder();
     }
-    public void CastAttack()
+    public void CastAttack(int sender, int target)
     {
-        int sender = 0;
         int damage = 0;
         switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].moveType)
         {
@@ -129,12 +132,12 @@ public class BattleScene : MonoBehaviour
                 int rnd = Mathf.FloorToInt((Random.Range(10, 21)) / 10);
                 damage = (Mathf.FloorToInt(Mathf.RoundToInt(characterReader.character[sender].baseDamage * characterReader.character[sender].moveInfo.m_Move[selectedAttack].damage / 2) / characterReader.character[target].defence)) * rnd;
                 characterReader.character[target].HP -= damage;
-                infoText.text = ("Used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + " on target " + target + "!\nIt dealt " + damage.ToString() + " damage.");
+                infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + "!\n" + characterReader.character[sender].m_CharacterName + " took " + damage.ToString() + " damage.");
                 break;
             case MovesSO.MoveType.magical:
                 damage = (Mathf.FloorToInt(Mathf.RoundToInt((characterReader.character[sender].moveInfo.m_Move[selectedAttack].damage * 10) / characterReader.character[target].defence)));
                 characterReader.character[target].HP -= damage;
-                infoText.text = ("Used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + " on target " + target + "!\nIt dealt " + damage.ToString() + " damage.");
+                infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + "!\n" + characterReader.character[sender].m_CharacterName + " took " + damage.ToString() + " damage.");
                 break;
             case MovesSO.MoveType.status:
                 switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].effectTarget)
@@ -155,7 +158,7 @@ public class BattleScene : MonoBehaviour
                                 characterReader.character[sender].speed += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                         }
-                        infoText.text = ("Effected yourself with " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + ".\nYou receved " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount + " to " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat + "!");
+                        infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + ".\n" + characterReader.character[sender].m_CharacterName + " receved " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount + " to " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat + "!");
                         break;
                     case true:
                         switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat)
@@ -173,7 +176,7 @@ public class BattleScene : MonoBehaviour
                                 characterReader.character[target].speed += characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount;
                                 break;
                         }
-                        infoText.text = ("Effected target " + target + " with " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + ".\nThey receved " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount + " to " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat + "!");
+                        infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + ".\n" + characterReader.character[target].m_CharacterName + " receved " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount + " to " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat + "!");
                         break;
                 }
                 break;
@@ -187,24 +190,25 @@ public class BattleScene : MonoBehaviour
         {
             if (target == 0)
             {
-                infoText.text = ("The player has died... GAME OVER");
+                infoText.text = ("The " + characterReader.character[target].m_CharacterName + " has died... GAME OVER");
             }
             else if (target >= 4)
             {
-                infoText.text = ("Target at " + target + " been killed");
+                infoText.text = ("Target at " + characterReader.character[target].m_CharacterName + " been killed");
                 Buttons[target].gameObject.SetActive(false);
                 enemies--;
             }
             else
             {
-                infoText.text = ("Target at " + target + " has died");
+                infoText.text = ("Target at " + characterReader.character[target].m_CharacterName + " has died");
 
             }
         }
-        if (enemies <= 0)
+        if (enemies == 0)
         {
             gameManager.ResumeGame();
         }
+        Debug.Log(enemies);
     }
     public void chooseMove()
     {
@@ -215,6 +219,37 @@ public class BattleScene : MonoBehaviour
     {
         optionBoxes[0].gameObject.SetActive(false);
         optionBoxes[1].gameObject.SetActive(true);
+    }
+    public void setTurnOrder()
+    {
+        turnOrder = new int[1];
+        turnOrder[0] = 0;
+        for (int i = 0; i < enemies; i++)
+        {
+            turnOrder = new int[i + 2];
+            turnOrder[i + 1] = i + 4; 
+        }
+        startTurn();
+    }
+    public void aiStartAttack(int x)
+    {
+        selectedAttack = Random.Range(0, 4);
+        target = 0;
+        CastAttack(x, target);
+    }
+    public void startTurn()
+    {
+        for(int i = 0; i < turnOrder.Length; i++)
+        {
+            if (turnOrder[i] == 0)
+            {
+                CastAttack(0, playerTarget);
+            }
+            else
+            {
+                aiStartAttack(turnOrder[i]);
+            }
+        }
 
     }
 }

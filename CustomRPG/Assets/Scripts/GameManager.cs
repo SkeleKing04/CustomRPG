@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
     {
         gameState = e_GameState.Resume;
         MenuState = e_MenuState.OverworldHUD;
+        UpdateMenu();
     }
     public void OpenEditor()
     {
