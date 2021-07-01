@@ -8,7 +8,11 @@ public class BattleScene : MonoBehaviour
     CharacterReader characterReader;
     CharacterInfoManager characterInfo;
     GameManager gameManager;
+    HUDControl hudControl;
     public GameObject[] optionBoxes;
+    public GameObject[] infoBoxes;
+    public Text[] infoBoxesNameText;
+    public Text[] infoBoxesMainText;
     public Button[] Buttons;
     public Text infoText;
     public int enemies;
@@ -22,6 +26,7 @@ public class BattleScene : MonoBehaviour
         characterReader = GetComponent<CharacterReader>();
         characterInfo = GetComponent<CharacterInfoManager>();
         gameManager = FindObjectOfType<GameManager>();
+        hudControl = GetComponent<HUDControl>();
     }
 
     // Update is called once per frame
@@ -37,7 +42,7 @@ public class BattleScene : MonoBehaviour
     }
     public void initializeFight()
     {
-        enemies = Random.Range(1, 4);
+        enemies = 3;
         for (int x = 4 + enemies; x > 3; x--)
         {
             characterReader.character[x].m_Class = characterInfo.classes[Random.Range(0, characterInfo.classes.Length - 1)];
@@ -70,14 +75,17 @@ public class BattleScene : MonoBehaviour
                     }
                 }
             }
-            characterReader.character[x].HP = characterReader.character[x].m_Class.HP;
-            characterReader.character[x].baseDamage = characterReader.character[x].m_Class.baseDamage;
-            characterReader.character[x].defence = characterReader.character[x].m_Class.defence;
-            characterReader.character[x].speed = characterReader.character[x].m_Class.speed;
-            characterReader.character[x].m_CharacterName = "Enemy " + x.ToString();
+            characterReader.character[x].HP = Mathf.RoundToInt(characterReader.character[x].m_Class.HP);
+            characterReader.character[x].baseDamage = Mathf.RoundToInt(characterReader.character[x].m_Class.baseDamage);
+            characterReader.character[x].defence = Mathf.RoundToInt(characterReader.character[x].m_Class.defence);
+            characterReader.character[x].speed = Mathf.RoundToInt(characterReader.character[x].m_Class.speed);
+            characterReader.character[x].m_CharacterName = "Enemy " + characterReader.character[x].m_Subclass.name + " " + characterReader.character[x].m_Class.name;
             Buttons[x - 1].gameObject.SetActive(true);
+            Debug.Log(x);
+            infoBoxes[].SetActive(true);
         }
-
+        //updateInfoBoxes();
+        hudControl.setupHUD();
     }
     public void selectFirstAttack()
     {
@@ -129,15 +137,17 @@ public class BattleScene : MonoBehaviour
         switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].moveType)
         {
             case MovesSO.MoveType.phyical:
-                int rnd = Mathf.FloorToInt((Random.Range(10, 21)) / 10);
-                damage = (Mathf.FloorToInt(Mathf.RoundToInt(characterReader.character[sender].baseDamage * characterReader.character[sender].moveInfo.m_Move[selectedAttack].damage / 2) / characterReader.character[target].defence)) * rnd;
+                //int rnd = Mathf.FloorToInt((Random.Range(10, 21)) / 10);
+                damage = (Mathf.FloorToInt(Mathf.RoundToInt(characterReader.character[sender].baseDamage * characterReader.character[sender].moveInfo.m_Move[selectedAttack].damage / 2) / characterReader.character[target].defence));
+                Debug.Log("The damage is " + damage);
                 characterReader.character[target].HP -= damage;
-                infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + "!\n" + characterReader.character[sender].m_CharacterName + " took " + damage.ToString() + " damage.");
+                infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + "!\n" + characterReader.character[target].m_CharacterName + " took " + damage.ToString() + " damage.");
                 break;
             case MovesSO.MoveType.magical:
-                damage = (Mathf.FloorToInt(Mathf.RoundToInt((characterReader.character[sender].moveInfo.m_Move[selectedAttack].damage * 10) / characterReader.character[target].defence)));
+                damage = (Mathf.FloorToInt(Mathf.RoundToInt((characterReader.character[sender].moveInfo.m_Move[selectedAttack].damage * 3) / characterReader.character[target].defence)));
+                Debug.Log("The damage is " + damage);
                 characterReader.character[target].HP -= damage;
-                infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + "!\n" + characterReader.character[sender].m_CharacterName + " took " + damage.ToString() + " damage.");
+                infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + "!\n" + characterReader.character[target].m_CharacterName + " took " + damage.ToString() + " damage.");
                 break;
             case MovesSO.MoveType.status:
                 switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].effectTarget)
@@ -181,6 +191,8 @@ public class BattleScene : MonoBehaviour
                 }
                 break;
         }
+        hudControl.setupHUD();
+        //updateInfoBoxes();
         DeathCheck(target);
         chooseMove();
     }
@@ -190,7 +202,7 @@ public class BattleScene : MonoBehaviour
         {
             if (target == 0)
             {
-                infoText.text = ("The " + characterReader.character[target].m_CharacterName + " has died... GAME OVER");
+                infoText.text = (characterReader.character[target].m_CharacterName + " has died... GAME OVER");
             }
             else if (target >= 4)
             {
@@ -222,11 +234,10 @@ public class BattleScene : MonoBehaviour
     }
     public void setTurnOrder()
     {
-        turnOrder = new int[1];
+        turnOrder = new int[1 + enemies];
         turnOrder[0] = 0;
         for (int i = 0; i < enemies; i++)
         {
-            turnOrder = new int[i + 2];
             turnOrder[i + 1] = i + 4; 
         }
         startTurn();
@@ -235,7 +246,7 @@ public class BattleScene : MonoBehaviour
     {
         selectedAttack = Random.Range(0, 4);
         target = 0;
-        CastAttack(x, target);
+        CastAttack(x, 0);
     }
     public void startTurn()
     {
@@ -252,4 +263,15 @@ public class BattleScene : MonoBehaviour
         }
 
     }
+    /*public void updateInfoBoxes()
+    {
+        for(int i = 0; i < enemies; i++)
+        {
+            Debug.Log(enemies);
+            infoBoxesNameText[i].text = characterReader.character[i + 4].m_CharacterName;
+            infoBoxesMainText[i].text = characterReader.character[i + 4].m_Class.name + "\n" + characterReader.character[i + 4].m_Subclass.name + "\n" + characterReader.character[i + 4].HP.ToString() + "\n" + characterReader.character[i + 4].baseDamage.ToString() + "\n" + characterReader.character[i + 4].defence.ToString() + "\n" + characterReader.character[i + 4].speed.ToString();
+        }
+
+
+    }*/
 }

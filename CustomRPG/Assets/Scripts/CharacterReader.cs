@@ -187,7 +187,7 @@ public class CharacterReader : MonoBehaviour
         {
             image.color = m_ClassIconDisplay.color = character[m_CharacterSlot].m_Subclass.subclassColour;
         }
-        character[m_CharacterSlot].HP = character[m_CharacterSlot].m_Class.HP;
+        character[m_CharacterSlot].HP = character[m_CharacterSlot].m_Class.HP * 10;
         character[m_CharacterSlot].baseDamage = character[m_CharacterSlot].m_Class.baseDamage;
         character[m_CharacterSlot].defence = character[m_CharacterSlot].m_Class.defence;
         character[m_CharacterSlot].speed = character[m_CharacterSlot].m_Class.speed;

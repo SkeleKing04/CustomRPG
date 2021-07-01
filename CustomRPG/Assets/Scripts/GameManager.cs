@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
                 break;
             case e_MenuState.BattleScene:
                 m_Menus[2].SetActive(true);
+                m_Menus[3].SetActive(true);
                 battleScene.LoadMoves();
                 battleScene.initializeFight();
                 break;
