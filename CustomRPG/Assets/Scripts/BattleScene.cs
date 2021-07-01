@@ -42,8 +42,8 @@ public class BattleScene : MonoBehaviour
     }
     public void initializeFight()
     {
-        enemies = 3;
-        for (int x = 4 + enemies; x > 3; x--)
+        enemies = 1;
+        for (int x = 4 + enemies; x > 4; x--)
         {
             characterReader.character[x].m_Class = characterInfo.classes[Random.Range(0, characterInfo.classes.Length - 1)];
             characterReader.character[x].m_Subclass = characterInfo.subclasses[Random.Range(0, characterInfo.subclasses.Length - 1)];
@@ -82,9 +82,9 @@ public class BattleScene : MonoBehaviour
             characterReader.character[x].m_CharacterName = "Enemy " + characterReader.character[x].m_Subclass.name + " " + characterReader.character[x].m_Class.name;
             Buttons[x - 1].gameObject.SetActive(true);
             Debug.Log(x);
-            infoBoxes[].SetActive(true);
+            infoBoxes[x - 5].SetActive(true);
         }
-        //updateInfoBoxes();
+        updateInfoBoxes();
         hudControl.setupHUD();
     }
     public void selectFirstAttack()
@@ -192,7 +192,7 @@ public class BattleScene : MonoBehaviour
                 break;
         }
         hudControl.setupHUD();
-        //updateInfoBoxes();
+        updateInfoBoxes();
         DeathCheck(target);
         chooseMove();
     }
@@ -263,15 +263,19 @@ public class BattleScene : MonoBehaviour
         }
 
     }
-    /*public void updateInfoBoxes()
+    public void updateInfoBoxes()
     {
-        for(int i = 0; i < enemies; i++)
+        for(int i = 0; i <= enemies; i++)
         {
             Debug.Log(enemies);
             infoBoxesNameText[i].text = characterReader.character[i + 4].m_CharacterName;
-            infoBoxesMainText[i].text = characterReader.character[i + 4].m_Class.name + "\n" + characterReader.character[i + 4].m_Subclass.name + "\n" + characterReader.character[i + 4].HP.ToString() + "\n" + characterReader.character[i + 4].baseDamage.ToString() + "\n" + characterReader.character[i + 4].defence.ToString() + "\n" + characterReader.character[i + 4].speed.ToString();
+            infoBoxesMainText[i].text = characterReader.character[i + 4].m_Class.name + "\n" +
+                                        characterReader.character[i + 4].m_Subclass.name + "\n" +
+                                        characterReader.character[i + 4].HP.ToString() + "\n" +
+                                        characterReader.character[i + 4].baseDamage.ToString() + "\n" +
+                                        characterReader.character[i + 4].defence.ToString() + "\n" + characterReader.character[i + 4].speed.ToString();
         }
 
 
-    }*/
+    }
 }
