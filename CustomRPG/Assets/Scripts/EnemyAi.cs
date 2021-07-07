@@ -12,6 +12,7 @@ public class EnemyAi : MonoBehaviour
     private Rigidbody m_rigidbody;
     public GameObject self;
     private bool following;
+    private bool dead;
     public UnityEvent onTrigger;
     // Start is called before the first frame update
     private void Awake()
@@ -22,7 +23,7 @@ public class EnemyAi : MonoBehaviour
     }
     void Start()
     {
-
+        dead = false;
     }
 
     // Update is called once per frame
@@ -38,17 +39,17 @@ public class EnemyAi : MonoBehaviour
         {
             //m_NavAgent.isStopped = true;
         }
+        if (dead == true)
+        {
+            Destroy(self);
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && dead == false)
         {
-            die();
-            onTrigger.Invoke();
+            dead = true;
+            gameManager.beginBattle();
         }   
-    }
-    public void die()
-    {
-        Destroy(self);
     }
 }

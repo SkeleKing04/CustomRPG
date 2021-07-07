@@ -16,6 +16,7 @@ public class BattleScene : MonoBehaviour
     public Button[] Buttons;
     public Text infoText;
     public int enemies;
+    public int enemiesdefeated;
     public int selectedAttack;
     public int playerTarget;
     public int target;
@@ -42,8 +43,8 @@ public class BattleScene : MonoBehaviour
     }
     public void initializeFight()
     {
-        enemies = 1;
-        for (int x = 4 + enemies; x > 4; x--)
+        enemies = Random.Range(1, 5);
+        for (int x = 4; x < 4 + enemies; x++)
         {
             characterReader.character[x].m_Class = characterInfo.classes[Random.Range(0, characterInfo.classes.Length - 1)];
             characterReader.character[x].m_Subclass = characterInfo.subclasses[Random.Range(0, characterInfo.subclasses.Length - 1)];
@@ -80,9 +81,9 @@ public class BattleScene : MonoBehaviour
             characterReader.character[x].defence = Mathf.RoundToInt(characterReader.character[x].m_Class.defence);
             characterReader.character[x].speed = Mathf.RoundToInt(characterReader.character[x].m_Class.speed);
             characterReader.character[x].m_CharacterName = "Enemy " + characterReader.character[x].m_Subclass.name + " " + characterReader.character[x].m_Class.name;
-            Buttons[x - 1].gameObject.SetActive(true);
+            Buttons[x].gameObject.SetActive(true);
             Debug.Log(x);
-            infoBoxes[x - 5].SetActive(true);
+            infoBoxes[x - 4].SetActive(true);
         }
         updateInfoBoxes();
         hudControl.setupHUD();
@@ -208,7 +209,8 @@ public class BattleScene : MonoBehaviour
             {
                 infoText.text = ("Target at " + characterReader.character[target].m_CharacterName + " been killed");
                 Buttons[target].gameObject.SetActive(false);
-                enemies--;
+                enemiesdefeated++;
+                infoBoxes[target - 4].gameObject.SetActive(false);
             }
             else
             {
@@ -216,7 +218,7 @@ public class BattleScene : MonoBehaviour
 
             }
         }
-        if (enemies == 0)
+        if (enemiesdefeated == enemies)
         {
             gameManager.ResumeGame();
         }
@@ -244,9 +246,12 @@ public class BattleScene : MonoBehaviour
     }
     public void aiStartAttack(int x)
     {
-        selectedAttack = Random.Range(0, 4);
-        target = 0;
-        CastAttack(x, 0);
+        if (characterReader.character[target].HP > 0)
+        {
+            selectedAttack = Random.Range(0, 3);
+            target = 0;
+            CastAttack(x, 0);
+        }
     }
     public void startTurn()
     {
@@ -265,7 +270,7 @@ public class BattleScene : MonoBehaviour
     }
     public void updateInfoBoxes()
     {
-        for(int i = 0; i <= enemies; i++)
+        for(int i = 0; i < enemies; i++)
         {
             Debug.Log(enemies);
             infoBoxesNameText[i].text = characterReader.character[i + 4].m_CharacterName;
