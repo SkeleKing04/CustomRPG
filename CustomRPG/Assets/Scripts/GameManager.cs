@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] m_Menus;
     EditorMenu editorMenu;
     BattleScene battleScene;
+    HUDControl HUDController;
     public GameObject m_Player;
     public Camera MainCamera;
     PlayerInfomation playerInfo;
@@ -19,14 +20,16 @@ public class GameManager : MonoBehaviour
         Off,
         ChooseCharacter,
         EditCharacter,
-        BattleScene
+        BattleScene,
+        OverworldHUD
     };
     public e_MenuState MenuState;
     public enum e_GameState
     {
         Paused,
         Start,
-        Playing
+        Playing,
+        Resume
     };
     public e_GameState gameState;
     // Start is called before the first frame update
@@ -38,6 +41,7 @@ public class GameManager : MonoBehaviour
         playerInfo = Object.FindObjectOfType<PlayerInfomation>();
         characterReader = Object.FindObjectOfType<CharacterReader>();
         battleScene = Object.FindObjectOfType<BattleScene>();
+        HUDController = Object.FindObjectOfType<HUDControl>();
         Dropdown.OptionData fire = new Dropdown.OptionData();
         fire.text = "Fire";
         //dropdown.AddOptions(fire);
@@ -51,6 +55,8 @@ public class GameManager : MonoBehaviour
             case e_GameState.Paused:
                 //m_Player.SetActive(false);
                 //MainCamera.gameObject.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 Time.timeScale = 0;
                 break;
             case e_GameState.Start:
@@ -59,6 +65,16 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 1;
                 gameState = e_GameState.Playing;
                 break;
+            case e_GameState.Playing:
+                break;
+            case e_GameState.Resume:
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                Time.timeScale = 1;
+                gameState = e_GameState.Playing;
+                break;
+
+
         }
     }
     public void UpdateMenu()
@@ -80,28 +96,43 @@ public class GameManager : MonoBehaviour
                 break;
             case e_MenuState.BattleScene:
                 m_Menus[2].SetActive(true);
+                m_Menus[3].SetActive(true);
                 battleScene.LoadMoves();
+                battleScene.initializeFight();
+                break;
+            case e_MenuState.OverworldHUD:
+                m_Menus[3].SetActive(true);
+                HUDController.setupHUD();
                 break;
         }
     }
     public void StartGame()
     {
         gameState = e_GameState.Start;
-        MenuState = e_MenuState.Off;
+        MenuState = e_MenuState.OverworldHUD;
+        UpdateMenu();
+    }
+    public void ResumeGame()
+    {
+        gameState = e_GameState.Resume;
+        MenuState = e_MenuState.OverworldHUD;
         UpdateMenu();
     }
     public void OpenEditor()
     {
+        gameState = e_GameState.Paused;
         MenuState = e_MenuState.EditCharacter;
         UpdateMenu();
     }
     public void OpenSelect()
     {
+        gameState = e_GameState.Paused;
         MenuState = e_MenuState.ChooseCharacter;
         UpdateMenu();
     }
     public void beginBattle()
     {
+        gameState = e_GameState.Paused;
         MenuState = e_MenuState.BattleScene;
         UpdateMenu();
     }

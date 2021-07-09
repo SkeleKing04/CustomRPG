@@ -27,25 +27,10 @@ public class MovesSO : ScriptableObject
         speed
     };
     public stats boostStat;
+    public bool effectTarget;
     public float boostAmmount;
     public float boostDuration;
     public int powerPoint;
     //public effectSO[] effect;
     //private GameObject cores;
-    public void CastAttack()
-    {
-        switch (moveType)
-        {
-            case MoveType.phyical:
-
-                Debug.Log("Casted " + name + " " + moveType + " attack");
-                break;
-            case MoveType.magical:
-                Debug.Log("Casted " + name + " " + moveType + " attack");
-                break;
-            case MoveType.status:
-                Debug.Log("Casted " + name + " " + moveType + " attack");
-                break;
-        }
-    }
 }
