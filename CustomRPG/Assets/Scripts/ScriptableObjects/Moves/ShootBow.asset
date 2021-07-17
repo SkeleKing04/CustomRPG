@@ -15,11 +15,10 @@ MonoBehaviour:
   name: ShootBow
   moveType: 1
   damage: 5
-  hitBox: {fileID: 0}
-  projectile: {fileID: 526283986719101804, guid: ed82f2a909bd7134ba201ef11d3ab577,
-    type: 3}
-  projectileSpeed: 20
+  speed: 0
   boostStat: 0
+  effectTarget: 0
   boostAmmount: 0
   boostDuration: 0
-  Cooldown: 2.5
+  powerPoint: 0
+  coreSlots: 2

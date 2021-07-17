@@ -15,10 +15,10 @@ MonoBehaviour:
   name: Slash
   moveType: 0
   damage: 10
-  hitBox: {fileID: 0}
-  projectile: {fileID: 0}
-  projectileSpeed: 0
+  speed: 0
   boostStat: 0
+  effectTarget: 0
   boostAmmount: 0
   boostDuration: 0
-  Cooldown: 1
+  powerPoint: 0
+  coreSlots: 3

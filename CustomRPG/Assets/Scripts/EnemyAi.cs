@@ -13,17 +13,17 @@ public class EnemyAi : MonoBehaviour
     public GameObject self;
     private bool following;
     private bool dead;
-    public UnityEvent onTrigger;
     // Start is called before the first frame update
     private void Awake()
     {
         gameManager = Object.FindObjectOfType<GameManager>();
         m_NavAgent = GetComponent<NavMeshAgent>();
         following = false;
+        dead = false;
     }
     void Start()
     {
-        dead = false;
+
     }
 
     // Update is called once per frame

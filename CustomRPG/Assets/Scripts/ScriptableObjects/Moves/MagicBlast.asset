@@ -15,10 +15,10 @@ MonoBehaviour:
   name: MagicBlast
   moveType: 1
   damage: 20
-  hitBox: {fileID: 0}
-  projectile: {fileID: 0}
-  projectileSpeed: 5
+  speed: 0
   boostStat: 0
+  effectTarget: 0
   boostAmmount: 0
   boostDuration: 0
-  Cooldown: 5
+  powerPoint: 0
+  coreSlots: 1

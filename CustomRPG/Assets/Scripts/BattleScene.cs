@@ -91,26 +91,59 @@ public class BattleScene : MonoBehaviour
     public void selectFirstAttack()
     {
         selectedAttack = 0;
-        infoText.text = "Select a target.";
-        chooseTarget();
+        if(characterReader.character[0].moveInfo.m_Move[selectedAttack].moveType == MovesSO.MoveType.status && characterReader.character[0].moveInfo.m_Move[selectedAttack].effectTarget == false)
+        {
+            playerTarget = 0;
+            setTurnOrder();
+        }
+        else
+        {
+            infoText.text = "Select a target.";
+            chooseTarget();
+        }
+
     }
     public void selectSecondAttack()
     {
         selectedAttack = 1;
-        infoText.text = "Select a target.";
-        chooseTarget();
+        if (characterReader.character[0].moveInfo.m_Move[selectedAttack].moveType == MovesSO.MoveType.status && characterReader.character[0].moveInfo.m_Move[selectedAttack].effectTarget == false)
+        {
+            playerTarget = 0;
+            setTurnOrder();
+        }
+        else
+        {
+            infoText.text = "Select a target.";
+            chooseTarget();
+        }
     }
     public void selectThirdAttack()
     {
         selectedAttack = 2;
-        infoText.text = "Select a target.";
-        chooseTarget();
+        if (characterReader.character[0].moveInfo.m_Move[selectedAttack].moveType == MovesSO.MoveType.status && characterReader.character[0].moveInfo.m_Move[selectedAttack].effectTarget == false)
+        {
+            playerTarget = 0;
+            setTurnOrder();
+        }
+        else
+        {
+            infoText.text = "Select a target.";
+            chooseTarget();
+        }
     }
     public void selectFourthAttack()
     {
         selectedAttack = 3;
-        infoText.text = "Select a target.";
-        chooseTarget();
+        if (characterReader.character[0].moveInfo.m_Move[selectedAttack].moveType == MovesSO.MoveType.status && characterReader.character[0].moveInfo.m_Move[selectedAttack].effectTarget == false)
+        {
+            playerTarget = 0;
+            setTurnOrder();
+        }
+        else
+        {
+            infoText.text = "Select a target.";
+            chooseTarget();
+        }
     }
     public void selectFirstTarget()
     {
@@ -274,6 +307,7 @@ public class BattleScene : MonoBehaviour
         {
             Debug.Log(enemies);
             infoBoxesNameText[i].text = characterReader.character[i + 4].m_CharacterName;
+            infoBoxesNameText[i + 4].text = characterReader.character[i + 4].m_CharacterName;
             infoBoxesMainText[i].text = characterReader.character[i + 4].m_Class.name + "\n" +
                                         characterReader.character[i + 4].m_Subclass.name + "\n" +
                                         characterReader.character[i + 4].HP.ToString() + "\n" +

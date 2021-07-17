@@ -31,6 +31,7 @@ public class MovesSO : ScriptableObject
     public float boostAmmount;
     public float boostDuration;
     public int powerPoint;
+    public int coreSlots;
     //public effectSO[] effect;
     //private GameObject cores;
 }
