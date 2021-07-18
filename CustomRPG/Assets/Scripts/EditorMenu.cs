@@ -5,30 +5,20 @@ using UnityEngine.UI;
 
 public class EditorMenu : MonoBehaviour
 {
-    //public ScriptableObject[] AvalibleClasses;
-    //public ScriptableObject[] AvalibleSubclasses;
-    //public ScriptableObject[] AvalibleMoves;
-    //public ScriptableObject[] AvalibleCores;
     public Dropdown[] Dropdowns;
     private int localConuter;
     CharacterReader characterReader;
     CharacterInfoManager CharacterInfo;
     public string softSave;
-    // Start is called before the first frame update
 
     void Start()
     {
         characterReader = Object.FindObjectOfType<CharacterReader>();
         CharacterInfo = Object.FindObjectOfType<CharacterInfoManager>();
-
     }
-
-    // Update is called once per frame
-    /*void Update()
-    {
-        
-    }*/
-    public void LoadEditor()
+    public void LoadEditor() //Loads all of the Classes, Subclass, Moves & Cores into the dropdown boxes
+                             //The is a bug where the value in a dropdown box appear blank but still have a value
+                             //This is only a visual bug, however I don't know how to fix it
     {
         localConuter = 0;
         foreach (ScriptableObject Class in CharacterInfo.classes)
@@ -70,11 +60,12 @@ public class EditorMenu : MonoBehaviour
             }
         }
     }
-    public void quickSave()
+    public void quickSave() //Create a quick save of the Character when a dropdown box is updated
     {
         softSave = null;
         for(int i = 0; i < 6; i++)
         {
+            //If the value of the dropdown is a single digit, add a 0 to the start of it
             if (Dropdowns[i].value < 10)
             {
                 softSave += "0" + (Dropdowns[i].value + 1).ToString();
@@ -83,6 +74,7 @@ public class EditorMenu : MonoBehaviour
             {
                 softSave += (Dropdowns[i].value + 1).ToString();
             }
+            //When the cores need to be added, do the following
             if (i == 2 || i == 3 || i == 4 || i == 5)
             {
                 softSave += CharacterInfo.moves[Dropdowns[i].value].coreSlots.ToString();

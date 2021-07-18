@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    //Array of all the menus
     public GameObject[] m_Menus;
+    //Scripts for each menu
     EditorMenu editorMenu;
     BattleScene battleScene;
     HUDControl HUDController;
+    //The player & camera
     public GameObject m_Player;
     public Camera MainCamera;
-    PlayerInfomation playerInfo;
-    CharacterReader characterReader;
-    CharacterMovement movement;
-    HealthManager healthManager;
+    //All the different menu states
     public enum e_MenuState
     {
         Off,
@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         OverworldHUD
     };
     public e_MenuState MenuState;
+    //All tje different game stats
     public enum e_GameState
     {
         Paused,
@@ -32,19 +33,13 @@ public class GameManager : MonoBehaviour
         Resume
     };
     public e_GameState gameState;
-    // Start is called before the first frame update
     void Start()
     {
-        //MenuState = e_MenuState.ChooseCharacter;
+        //Update the menu to display the right one
         UpdateMenu();
         editorMenu = Object.FindObjectOfType<EditorMenu>();
-        playerInfo = Object.FindObjectOfType<PlayerInfomation>();
-        characterReader = Object.FindObjectOfType<CharacterReader>();
         battleScene = Object.FindObjectOfType<BattleScene>();
         HUDController = Object.FindObjectOfType<HUDControl>();
-        Dropdown.OptionData fire = new Dropdown.OptionData();
-        fire.text = "Fire";
-        //dropdown.AddOptions(fire);
     }
 
     // Update is called once per frame
@@ -79,10 +74,12 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateMenu()
     {
+        //Hide all the menus
         foreach(GameObject menu in m_Menus)
         {
             menu.SetActive(false);
         }
+        //Load the current MenuStat
         switch (MenuState)
         {
             case e_MenuState.Off:
@@ -92,20 +89,25 @@ public class GameManager : MonoBehaviour
                 break;
             case e_MenuState.EditCharacter:
                 m_Menus[1].SetActive(true);
+                ///Load the editor script
                 editorMenu.LoadEditor();
                 break;
             case e_MenuState.BattleScene:
                 m_Menus[2].SetActive(true);
                 m_Menus[3].SetActive(true);
+                //Start the Battle Scene
                 battleScene.LoadMoves();
                 battleScene.initializeFight();
                 break;
             case e_MenuState.OverworldHUD:
                 m_Menus[3].SetActive(true);
+                //Setup the HUD
                 HUDController.setupHUD();
                 break;
         }
     }
+    //Set the gameState and MenuState
+    //Then update the menu
     public void StartGame()
     {
         gameState = e_GameState.Start;

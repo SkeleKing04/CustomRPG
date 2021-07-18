@@ -187,7 +187,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '%ENEMYNAME%'
 --- !u!222 &1026953
@@ -2983,7 +2983,6 @@ GameObject:
   - component: {fileID: 286858181}
   - component: {fileID: 286858176}
   - component: {fileID: 286858187}
-  - component: {fileID: 286858182}
   - component: {fileID: 286858183}
   - component: {fileID: 286858184}
   - component: {fileID: 286858185}
@@ -3103,18 +3102,6 @@ MonoBehaviour:
   JumpForce: 0.02
   grounded: 0
   shades: {fileID: 1089415258}
---- !u!114 &286858182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 286858175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21fa2c5ebc7dde84bb9214eaec82f1a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &286858183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3122,7 +3109,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286858175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 389caf8ec773b0043af664f2fda456e6, type: 3}
   m_Name: 
@@ -6305,7 +6292,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '%ENEMYNAME%'
 --- !u!222 &793349742
@@ -7748,7 +7735,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '%ENEMYNAME%'
 --- !u!222 &1103415138
@@ -10491,7 +10478,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '%ENEMYNAME%'
 --- !u!222 &1547237585
@@ -11943,8 +11930,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 493.5, y: -100}
-  m_SizeDelta: {x: 967, y: 180}
+  m_AnchoredPosition: {x: 472, y: -100}
+  m_SizeDelta: {x: 924, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1838721618
 MonoBehaviour:

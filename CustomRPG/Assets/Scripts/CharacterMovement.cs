@@ -29,7 +29,7 @@ public class CharacterMovement : MonoBehaviour
         switch (gameManager.gameState)
         {
             case GameManager.e_GameState.Playing:
-                // rotate the character according to left/right key presses
+                // rotate the character according to mouse position
                 m_rigidbody.position += (transform.right * Input.GetAxis("Horizontal") * MoveSpeed);
                 m_rigidbody.position += (transform.forward * Input.GetAxis("Vertical") * MoveSpeed);
                 transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * RotateSpeed * Time.deltaTime);

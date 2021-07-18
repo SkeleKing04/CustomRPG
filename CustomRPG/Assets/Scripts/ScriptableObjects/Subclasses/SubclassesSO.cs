@@ -2,22 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script for creating Subclass scriptable objects
 [CreateAssetMenu(fileName = "Subclass", menuName = "RPG/Subclass")]
 public class SubclassesSO : ScriptableObject
 {
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+    //Name of the Subclass
     public string name;
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
+    //Colour of the Subclass
+    //Used for backgrounds & character details
     public Color subclassColour;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -1,27 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+//The Script of the battle scene
 public class BattleScene : MonoBehaviour
 {
     CharacterReader characterReader;
     CharacterInfoManager characterInfo;
     GameManager gameManager;
     HUDControl hudControl;
+    //Arrays of the move & enemy option boxes, enemy infomation boxes, text boxes in the enemy info boxes and buttons 
     public GameObject[] optionBoxes;
     public GameObject[] infoBoxes;
     public Text[] infoBoxesNameText;
     public Text[] infoBoxesMainText;
     public Button[] Buttons;
     public Text infoText;
+    //Number of enemies
     public int enemies;
+    //Number of defeated enemies
     public int enemiesdefeated;
+    //The attack & target chooen by the player
     public int selectedAttack;
     public int playerTarget;
+    //The target chooen by the enemy
     public int target;
+    //The order that everyone in the battle attacks
     public int[] turnOrder;
-    // Start is called before the first frame update
     void Start()
     {
         characterReader = GetComponent<CharacterReader>();
@@ -29,21 +33,20 @@ public class BattleScene : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         hudControl = GetComponent<HUDControl>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
     public void LoadMoves()
     {
-        for(int i = 0; i < 4; i++)
+        //Loads the players move in
+        for (int i = 0; i < 4; i++)
         {
             Buttons[i].GetComponentInChildren<Text>().text = characterReader.character[0].moveInfo.m_Move[i].name;
         }
     }
     public void initializeFight()
     {
+        //Choose a random number of enemies
         enemies = Random.Range(1, 5);
+        //Give each of the enemies their Class, Subclass, Moves and Cores
+        //Works in a simmilar fashion to the Character Loader
         for (int x = 4; x < 4 + enemies; x++)
         {
             characterReader.character[x].m_Class = characterInfo.classes[Random.Range(0, characterInfo.classes.Length - 1)];
@@ -81,17 +84,21 @@ public class BattleScene : MonoBehaviour
             characterReader.character[x].defence = Mathf.RoundToInt(characterReader.character[x].m_Class.defence);
             characterReader.character[x].speed = Mathf.RoundToInt(characterReader.character[x].m_Class.speed);
             characterReader.character[x].m_CharacterName = "Enemy " + characterReader.character[x].m_Subclass.name + " " + characterReader.character[x].m_Class.name;
+            //For each enemy, enable a button & infobox
             Buttons[x].gameObject.SetActive(true);
             Debug.Log(x);
             infoBoxes[x - 4].SetActive(true);
         }
+        //Update the info boxes and player HUD
         updateInfoBoxes();
         hudControl.setupHUD();
     }
+    //Run if the first move is selected
     public void selectFirstAttack()
     {
+        //If the move does not need a target, skip choosing a target
         selectedAttack = 0;
-        if(characterReader.character[0].moveInfo.m_Move[selectedAttack].moveType == MovesSO.MoveType.status && characterReader.character[0].moveInfo.m_Move[selectedAttack].effectTarget == false)
+        if (characterReader.character[0].moveInfo.m_Move[selectedAttack].moveType == MovesSO.MoveType.status && characterReader.character[0].moveInfo.m_Move[selectedAttack].effectTarget == false)
         {
             playerTarget = 0;
             setTurnOrder();
@@ -103,8 +110,10 @@ public class BattleScene : MonoBehaviour
         }
 
     }
+    //Run if the Second move is selected
     public void selectSecondAttack()
     {
+        //If the move does not need a target, skip choosing a target
         selectedAttack = 1;
         if (characterReader.character[0].moveInfo.m_Move[selectedAttack].moveType == MovesSO.MoveType.status && characterReader.character[0].moveInfo.m_Move[selectedAttack].effectTarget == false)
         {
@@ -117,8 +126,10 @@ public class BattleScene : MonoBehaviour
             chooseTarget();
         }
     }
+    //Run if the Third move is selected
     public void selectThirdAttack()
     {
+        //If the move does not need a target, skip choosing a target
         selectedAttack = 2;
         if (characterReader.character[0].moveInfo.m_Move[selectedAttack].moveType == MovesSO.MoveType.status && characterReader.character[0].moveInfo.m_Move[selectedAttack].effectTarget == false)
         {
@@ -131,8 +142,10 @@ public class BattleScene : MonoBehaviour
             chooseTarget();
         }
     }
+    //Run if the Fourth move is selected
     public void selectFourthAttack()
     {
+        //If the move does not need a target, skip choosing a target
         selectedAttack = 3;
         if (characterReader.character[0].moveInfo.m_Move[selectedAttack].moveType == MovesSO.MoveType.status && characterReader.character[0].moveInfo.m_Move[selectedAttack].effectTarget == false)
         {
@@ -145,6 +158,7 @@ public class BattleScene : MonoBehaviour
             chooseTarget();
         }
     }
+    //Choose a target then set the turn order
     public void selectFirstTarget()
     {
         playerTarget = 4;
@@ -168,6 +182,7 @@ public class BattleScene : MonoBehaviour
     public void CastAttack(int sender, int target)
     {
         int damage = 0;
+        //Check the type of move sent
         switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].moveType)
         {
             case MovesSO.MoveType.phyical:
@@ -184,9 +199,11 @@ public class BattleScene : MonoBehaviour
                 infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + "!\n" + characterReader.character[target].m_CharacterName + " took " + damage.ToString() + " damage.");
                 break;
             case MovesSO.MoveType.status:
+                //Check if the move targets a target or the caster
                 switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].effectTarget)
                 {
                     case false:
+                        //Check the stat boosted & boost that stat on the sender
                         switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat)
                         {
                             case MovesSO.stats.HP:
@@ -205,6 +222,7 @@ public class BattleScene : MonoBehaviour
                         infoText.text = (characterReader.character[sender].m_CharacterName + " used " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].name + ".\n" + characterReader.character[sender].m_CharacterName + " receved " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostAmmount + " to " + characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat + "!");
                         break;
                     case true:
+                        //Check the stat boosted & boost that stat on the target
                         switch (characterReader.character[sender].moveInfo.m_Move[selectedAttack].boostStat)
                         {
                             case MovesSO.stats.HP:
@@ -225,6 +243,7 @@ public class BattleScene : MonoBehaviour
                 }
                 break;
         }
+        //Update the HUD and run a death check
         hudControl.setupHUD();
         updateInfoBoxes();
         DeathCheck(target);
@@ -232,12 +251,15 @@ public class BattleScene : MonoBehaviour
     }
     public void DeathCheck(int target)
     {
+        //Check the target is dead
         if (characterReader.character[target].HP <= 0)
         {
+            //If its the player, end the game
             if (target == 0)
             {
                 infoText.text = (characterReader.character[target].m_CharacterName + " has died... GAME OVER");
             }
+            //If its and enemy, remove the button to attack them and their info box & increase the number of enemies defeated
             else if (target >= 4)
             {
                 infoText.text = ("Target at " + characterReader.character[target].m_CharacterName + " been killed");
@@ -245,40 +267,52 @@ public class BattleScene : MonoBehaviour
                 enemiesdefeated++;
                 infoBoxes[target - 4].gameObject.SetActive(false);
             }
+            //Notify the player if anything inbetween dies
             else
             {
                 infoText.text = ("Target at " + characterReader.character[target].m_CharacterName + " has died");
 
             }
         }
+        //If all the enemies are dead, leave the battle and resume the game
         if (enemiesdefeated == enemies)
         {
             gameManager.ResumeGame();
         }
         Debug.Log(enemies);
     }
+    //Enable the move options
     public void chooseMove()
     {
         optionBoxes[1].gameObject.SetActive(false);
         optionBoxes[0].gameObject.SetActive(true);
     }
+    //Enable the target options
+
     public void chooseTarget()
     {
         optionBoxes[0].gameObject.SetActive(false);
         optionBoxes[1].gameObject.SetActive(true);
     }
+    //Set which order everyone in the battle goes
+    //This is supposed to use the speeds of the battlers but doesn't yet
     public void setTurnOrder()
     {
+        //The array lenght is the number of enemies + 1
         turnOrder = new int[1 + enemies];
+        //The player goes first
         turnOrder[0] = 0;
+        //Add all the enemies to the order
         for (int i = 0; i < enemies; i++)
         {
-            turnOrder[i + 1] = i + 4; 
+            turnOrder[i + 1] = i + 4;
         }
+        //Start the turn
         startTurn();
     }
     public void aiStartAttack(int x)
     {
+        //If the enemy is alive, select a random move and target, then attack
         if (characterReader.character[target].HP > 0)
         {
             selectedAttack = Random.Range(0, 3);
@@ -288,22 +322,23 @@ public class BattleScene : MonoBehaviour
     }
     public void startTurn()
     {
-        for(int i = 0; i < turnOrder.Length; i++)
+        for (int i = 0; i < turnOrder.Length; i++)
         {
+            //If it is the players turn to attack, use playerTarget, then attack
             if (turnOrder[i] == 0)
             {
                 CastAttack(0, playerTarget);
             }
-            else
+            else //Let the ai choose moves and targets
             {
                 aiStartAttack(turnOrder[i]);
             }
         }
-
     }
     public void updateInfoBoxes()
     {
-        for(int i = 0; i < enemies; i++)
+        //For each enemy, put their infomation into and info box
+        for (int i = 0; i < enemies; i++)
         {
             Debug.Log(enemies);
             infoBoxesNameText[i].text = characterReader.character[i + 4].m_CharacterName;
@@ -314,7 +349,5 @@ public class BattleScene : MonoBehaviour
                                         characterReader.character[i + 4].baseDamage.ToString() + "\n" +
                                         characterReader.character[i + 4].defence.ToString() + "\n" + characterReader.character[i + 4].speed.ToString();
         }
-
-
     }
 }

@@ -2,22 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script for creating core scriptable objects
 [CreateAssetMenu(fileName = "Core", menuName = "RPG/Core")]
 public class CoreSO : ScriptableObject
 {
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+    //Name of the core
     public string name;
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
+    //This was going to used to limit what subclasses could use what cores but it isn't used yet
     public SubclassesSO ForSubclass;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This rotates the game object containing the sun and moon... not much else
 public class SunMoonRotate : MonoBehaviour
 {
     public float RotateSpeed = 1f;

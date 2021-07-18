@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//  THIS SCRIPT IS NO LONGER USED
+//  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class HealthManager : MonoBehaviour
 {
     public float HP;
@@ -17,13 +20,6 @@ public class HealthManager : MonoBehaviour
         GameManager = Object.FindObjectOfType<GameManager>();
         characterReader = Object.FindObjectOfType<CharacterReader>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void calculateDamage(float baseDamage, float moveDamage, float defence)
     {
         damage = (baseDamage * moveDamage)/ defence;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//THIS IS A TESTING SCRIPT
 public class ToggleCheck : MonoBehaviour
 {
     public test[] pog = new test[4];

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//This script keeps track of the player's stats & info
 public class HUDControl : MonoBehaviour
 {
     CharacterReader characterReader;
@@ -16,7 +17,9 @@ public class HUDControl : MonoBehaviour
 
     public void setupHUD()
     {
+        //Set the name of player's Character to the name text box
         CharacterNameText.text = characterReader.character[0].m_CharacterName;
+        //Set the rest of player's Character's stats to the smaller box
         CharacterStatsText.text = characterReader.character[0].m_Class.name + "\n" +
                                   characterReader.character[0].m_Subclass.name + "\n" +
                                   characterReader.character[0].HP.ToString() + "\n" +
