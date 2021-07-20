@@ -2108,11 +2108,8 @@ MonoBehaviour:
   - {fileID: 42724560}
   - {fileID: 1492993263}
   - {fileID: 1088531588}
+  SavedPlayersFileName: SavedPlayers.txt
   m_SavedCharacters:
-  - 
-  - 
-  - 
-  - 
   - 
   m_CharacterSlotInputer: {fileID: 1765154979}
   m_CharacterBlerb: {fileID: 1125087112}
@@ -13751,7 +13748,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2134485021}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 162764343}
+        m_MethodName: saveCharacter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2134485021
 MonoBehaviour:
   m_ObjectHideFlags: 0

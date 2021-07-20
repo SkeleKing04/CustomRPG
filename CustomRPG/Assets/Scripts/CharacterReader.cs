@@ -26,9 +26,9 @@ public class CharacterReader : MonoBehaviour
     public Image m_ClassIconDisplay;
     public Image[] m_MoveCoreDisplay;
     //File name
-    private string SavedPlayersFileName = "SavedPlayers.txt";
+    public string SavedPlayersFileName = "SavedPlayers.txt";
     //Number of Characters that can be loaded in the game from the "SavedPlayers.txt" file
-    public string[] m_SavedCharacters = new string[5];
+    public string[] m_SavedCharacters = new string[1];
     //Input Field on main screen
     public InputField m_CharacterSlotInputer;
     //A little Character description

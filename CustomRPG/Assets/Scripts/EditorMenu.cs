@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class EditorMenu : MonoBehaviour
 {
@@ -91,5 +92,30 @@ public class EditorMenu : MonoBehaviour
                 }
             }
         }
+    }
+    public void saveCharacter() //save the edited character to the slot
+    {
+        LoadSavedPlayersFromFile();
+        StreamWriter fileWriter = new StreamWriter(characterReader.currentDirectory + "/" + characterReader.SavedPlayersFileName);
+        fileWriter.WriteLine(softSave);
+    }
+    public void LoadSavedPlayersFromFile()
+    {
+        Debug.Log("Looking for " + characterReader.currentDirectory + "/" + characterReader.SavedPlayersFileName);
+        //Check to see if the file exists
+        bool Exists = File.Exists(characterReader.currentDirectory + "/" + characterReader.SavedPlayersFileName);
+        Debug.Log(Exists);
+        if (Exists == true)
+        {
+            Debug.Log("Saved Players Found");
+        }
+        else
+        {
+            //Stop if the file does not exist
+            Debug.Log("Missing Saved Players file. Game will not run", this);
+            return;
+        }
+        //Read all the lines in the file
+        characterReader.m_SavedCharacters = File.ReadAllLines(characterReader.currentDirectory + "/" + characterReader.SavedPlayersFileName);
     }
 }
