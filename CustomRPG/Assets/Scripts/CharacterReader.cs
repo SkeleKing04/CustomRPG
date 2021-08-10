@@ -28,7 +28,7 @@ public class CharacterReader : MonoBehaviour
     //File name
     public string SavedPlayersFileName = "SavedPlayers.txt";
     //Number of Characters that can be loaded in the game from the "SavedPlayers.txt" file
-    public string[] m_SavedCharacters = new string[1];
+    public List<string> m_SavedCharacters = new List<string>();
     //Input Field on main screen
     public InputField m_CharacterSlotInputer;
     //A little Character description
@@ -93,7 +93,7 @@ public class CharacterReader : MonoBehaviour
             return;
         }
         //Read all the lines in the file
-        m_SavedCharacters = File.ReadAllLines(currentDirectory + "/" + SavedPlayersFileName);
+        m_SavedCharacters.AddRange(File.ReadAllLines(currentDirectory + "/" + SavedPlayersFileName));
     }
     public void LoadPlayer()
     {
@@ -120,7 +120,9 @@ public class CharacterReader : MonoBehaviour
         }
         //Class
         //Get the Class
-        character[m_CharacterSlot].m_Class = CharacterInfo.classes[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+        Debug.Log("Loading Class");
+        character[m_CharacterSlot].m_Class = CharacterInfo.classes[(((Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString())) * 10) + ((Convert.ToInt32(m_CharacterData[m_CurrentIndex + 1].ToString()))))];
+        Debug.Log("Class - " + character[m_CharacterSlot].m_Class.name);
         //Load the Class icon
         m_ClassIconDisplay.sprite = character[m_CharacterSlot].m_Class.classIcon;
         m_CurrentIndex += 2;
@@ -128,7 +130,7 @@ public class CharacterReader : MonoBehaviour
 
         //Subclass
         //Get the Subclass
-        character[m_CharacterSlot].m_Subclass = CharacterInfo.subclasses[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+        character[m_CharacterSlot].m_Subclass = CharacterInfo.subclasses[(((Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString())) * 10) + ((Convert.ToInt32(m_CharacterData[m_CurrentIndex + 1].ToString()))))];
         //Load the Subclass colour
         m_ClassIconDisplay.color = character[m_CharacterSlot].m_Subclass.subclassColour;
         m_CurrentIndex += 2;
@@ -139,7 +141,8 @@ public class CharacterReader : MonoBehaviour
         {
             Debug.Log("a is " + a);
             //Get the Move
-            character[m_CharacterSlot].moveInfo.m_Move[a] = CharacterInfo.moves[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+            Debug.Log((((Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString())) * 10) + ((Convert.ToInt32(m_CharacterData[m_CurrentIndex + 1].ToString())))));
+            character[m_CharacterSlot].moveInfo.m_Move[a] = CharacterInfo.moves[(((Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString())) * 10) + ((Convert.ToInt32(m_CharacterData[m_CurrentIndex + 1].ToString()))))];
             m_CurrentIndex += 2;
             m_TheoreticalLength += 2;
             //Get the Moves core count
@@ -154,15 +157,21 @@ public class CharacterReader : MonoBehaviour
                 {
                     case 1:
                         //Get the Core
-                        character[m_CharacterSlot].moveInfo.m_MoveCore1[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+                        character[m_CharacterSlot].moveInfo.m_MoveCore1[a] = CharacterInfo.cores[(((Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString())) * 10) + ((Convert.ToInt32(m_CharacterData[m_CurrentIndex + 1].ToString()))))];
+                        m_CurrentIndex += 2;
+                        m_TheoreticalLength += 2;
                         break;
                     case 2:
                         //Get the Core
-                        character[m_CharacterSlot].moveInfo.m_MoveCore2[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+                        character[m_CharacterSlot].moveInfo.m_MoveCore2[a] = CharacterInfo.cores[(((Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString())) * 10) + ((Convert.ToInt32(m_CharacterData[m_CurrentIndex + 1].ToString()))))];
+                        m_CurrentIndex += 2;
+                        m_TheoreticalLength += 2;
                         break;
                     case 3:
                         //Get the Core
-                        character[m_CharacterSlot].moveInfo.m_MoveCore3[a] = CharacterInfo.cores[Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString() + m_CharacterData[m_CurrentIndex + 1].ToString()) - 1];
+                        character[m_CharacterSlot].moveInfo.m_MoveCore3[a] = CharacterInfo.cores[(((Convert.ToInt32(m_CharacterData[m_CurrentIndex].ToString())) * 10) + ((Convert.ToInt32(m_CharacterData[m_CurrentIndex + 1].ToString()))))];
+                        m_CurrentIndex += 2;
+                        m_TheoreticalLength += 2;
                         break;
                     //If the core count is higher then 3, the Character is illegal and will stop loading
                     default:
@@ -170,8 +179,6 @@ public class CharacterReader : MonoBehaviour
                         //Application.Quit();
                         return;
                 }
-                m_CurrentIndex += 2;
-                m_TheoreticalLength += 2;
                 //Display the correct cores
                 m_MoveCoreDisplay[((3 * a) + i) - 1].gameObject.SetActive(true);
             }
@@ -203,7 +210,7 @@ public class CharacterReader : MonoBehaviour
         //Convert the text in the input field to an int
         int i = Convert.ToInt32(m_CharacterSlotInputer.text);
         //If the int is too big, stop
-        if (i > m_SavedCharacters.Length)
+        if (i > m_SavedCharacters.Count)
         {
             Debug.Log("That Character does not exist");
             return;

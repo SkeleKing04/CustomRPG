@@ -1,0 +1,15 @@
+========================
+LOADING PLAYER PSUDOCODE
+------------------------
+string playerID = 0123456789NAME;
+int classID = (1st character of playerID).ToString() + (2nd character of playerID).ToString();
+int subclassID = (3rd character of playerID).ToString() + (4th character of playerID).ToString();
+repeat 4 times
+	{
+		int moveID = (next 2 characters of playerID).ToString();
+		int coreCount = (next character of playerID).ToString();
+		repeat number of coreCount
+		{
+			int coreID = (next 2 characters of playerID).ToString();
+		}
+	}
